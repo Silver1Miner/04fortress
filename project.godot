@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/world/board/Grid.gd"
 }, {
-"base": "Path2D",
+"base": "Reference",
 "class": "PathFinder",
 "language": "GDScript",
 "path": "res://src/world/board/PathFinder.gd"
