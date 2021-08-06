@@ -17,10 +17,7 @@ func _add_and_connect_points(cell_mappings: Dictionary) -> void:
 		_astar.add_point(cell_mappings[point], point)
 	for point in cell_mappings:
 		for neighbor_index in _find_neighbor_indices(point, cell_mappings):
-			_astar.connect_points(cell_mappings[point], neighbor_index, _get_terrain_move_cost(point))
-
-func _get_terrain_move_cost(_cell: Vector2) -> float:
-	return 0.0
+			_astar.connect_points(cell_mappings[point], neighbor_index)
 
 func _find_neighbor_indices(cell: Vector2, cell_mappings: Dictionary) -> Array:
 	var out := []
