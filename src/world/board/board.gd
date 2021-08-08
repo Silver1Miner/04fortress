@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
@@ -10,16 +10,30 @@ onready var ui_controls := $UI
 
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _astar := AStar2D.new()
-
 var current_path := PoolVector2Array()
-
-#signal terrain_changed
+var build_mode := -1
+var terrain_data = {
+	-1: {"name": "empty", "move_cost": 0},
+	0: {"name": "plains", "move_cost": 2},
+	1: {"name": "forest", "move_cost": 3},
+	2: {"name": "hills", "move_cost": 4},
+	3: {"name": "road", "move_cost": 1},
+	4: {"name": "gen", "move_cost": 5},
+	5: {"name": "mg", "move_cost": 5},
+	6: {"name": "vul", "move_cost": 5},
+	7: {"name": "art", "move_cost": 5},
+	8: {"name": "rkt", "move_cost": 5}
+}
+var points := []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if ui_controls.connect("build_mode", self, "_on_build_mode_changed") != OK:
 		push_error("build mode signal connect fail")
-	var points := []
+	if player_cursor.connect("accept_pressed", self, "_on_player_accept") != OK:
+		push_error("player accept signal connect fail")
+	if player_cursor.connect("cancel_pressed", self, "_on_player_cancel") != OK:
+		push_error("player cancel signal connect fail")
 	for x in 20:
 		for y in 12:
 			points.append(Vector2(x, y))
@@ -35,15 +49,6 @@ func initialize_path(walkable_cells: Array) -> void:
 
 func get_terrain_move_cost(cell) -> float:
 	return terrain_data[terrain.get_cellv(cell)]["move_cost"]
-
-var terrain_data = {
-	-1: {"name": "empty", "move_cost": 0},
-	0: {"name": "plains", "move_cost": 2},
-	1: {"name": "forest", "move_cost": 3},
-	2: {"name": "hills", "move_cost": 4},
-	3: {"name": "road", "move_cost": 1},
-	4: {"name": "barrier", "move_cost": 5}
-}
 
 func _add_and_connect_points(cell_mappings: Dictionary) -> void:
 	for point in cell_mappings:
@@ -70,10 +75,33 @@ func calculate_point_path(start: Vector2, end: Vector2) -> PoolVector2Array:
 	else:
 		return PoolVector2Array()
 
+func _on_build_mode_changed(new_mode) -> void:
+	print("build mode changed to ", terrain_data[new_mode]["name"])
+	build_mode = new_mode
+
+func _on_player_accept(cell) -> void:
+	print("player pressed accept at ", cell)
+	if build_mode != -1:
+		terrain.set_cellv(cell, build_mode)
+		terrain.update_bitmask_region()
+		initialize_path(points)
+		enemy_path.draw_path(current_path)
+
+func _on_player_cancel(cell) -> void:
+	print("player pressed cancel at ", cell)
+	ui_controls.untoggle_terrain()
+	ui_controls.untoggle_towers()
+	build_mode = -1
+
+var unit = preload("res://src/world/unit/unit.tscn")
+func spawn_enemy_unit() -> void:
+	var unit_instance = unit.instance()
+	unit_instance.position = grid.get_map_position(start_cell)
+	enemy_path.add_child(unit_instance)
+	unit_instance.walk_along(current_path)
+
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
-		var cell = grid.get_cell_coordinates(event.position - position)
-		print(terrain_data[terrain.get_cellv(cell)]["name"])
 	if event.is_action_pressed("ui_home"):
 		print(current_path)
+		spawn_enemy_unit()

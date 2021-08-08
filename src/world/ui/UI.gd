@@ -34,8 +34,6 @@ func _ready() -> void:
 		push_error("button connect fail")
 	if build_rkt_button.connect("toggled", self, "_on_rkt_toggled") != OK:
 		push_error("button connect fail")
-	if connect("build_mode", self, "_on_build_mode_change") != OK:
-		push_error("button connect fail")
 
 func untoggle_terrain() -> void:
 	for button in $terrain_bar/VBoxContainer/options.get_children():
@@ -45,12 +43,9 @@ func untoggle_towers() -> void:
 	for button in $tower_bar/tower_build/options.get_children():
 		button.pressed = false
 
-func _on_build_mode_change(mode) -> void:
-	print("build mode changed to ", mode) 
-
 func _on_plain_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "plain")
+		emit_signal("build_mode", 0)
 		to_road_button.pressed = false
 		to_barrier_button.pressed = false
 		to_forest_button.pressed = false
@@ -58,7 +53,7 @@ func _on_plain_toggled(toggled) -> void:
 
 func _on_road_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "road")
+		emit_signal("build_mode", 3)
 		to_plain_button.pressed = false
 		to_barrier_button.pressed = false
 		to_forest_button.pressed = false
@@ -66,7 +61,7 @@ func _on_road_toggled(toggled) -> void:
 
 func _on_barrier_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "barrier")
+		emit_signal("build_mode", 2)
 		to_plain_button.pressed = false
 		to_road_button.pressed = false
 		to_forest_button.pressed = false
@@ -74,7 +69,7 @@ func _on_barrier_toggled(toggled) -> void:
 
 func _on_forest_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "forest")
+		emit_signal("build_mode", 1)
 		to_plain_button.pressed = false
 		to_road_button.pressed = false
 		to_barrier_button.pressed = false
@@ -82,7 +77,7 @@ func _on_forest_toggled(toggled) -> void:
 
 func _on_gen_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "gen")
+		emit_signal("build_mode", 4)
 		build_mg_button.pressed = false
 		build_vul_button.pressed = false
 		build_art_button.pressed = false
@@ -91,7 +86,7 @@ func _on_gen_toggled(toggled) -> void:
 
 func _on_mg_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "mg")
+		emit_signal("build_mode", 5)
 		build_gen_button.pressed = false
 		build_vul_button.pressed = false
 		build_art_button.pressed = false
@@ -100,7 +95,7 @@ func _on_mg_toggled(toggled) -> void:
 
 func _on_vul_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "vul")
+		emit_signal("build_mode", 6)
 		build_gen_button.pressed = false
 		build_mg_button.pressed = false
 		build_art_button.pressed = false
@@ -109,7 +104,7 @@ func _on_vul_toggled(toggled) -> void:
 
 func _on_art_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "art")
+		emit_signal("build_mode", 7)
 		build_gen_button.pressed = false
 		build_mg_button.pressed = false
 		build_vul_button.pressed = false
@@ -118,7 +113,7 @@ func _on_art_toggled(toggled) -> void:
 
 func _on_rkt_toggled(toggled) -> void:
 	if toggled:
-		emit_signal("build_mode", "rkt")
+		emit_signal("build_mode", 8)
 		build_gen_button.pressed = false
 		build_mg_button.pressed = false
 		build_vul_button.pressed = false

@@ -6,10 +6,16 @@
 [ext_resource path="res://src/world/board/board.gd" type="Script" id=4]
 [ext_resource path="res://src/world/ui/UI.tscn" type="PackedScene" id=5]
 
-[node name="board" type="Node2D"]
+[node name="board" type="Control"]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 start_cell = Vector2( 0, 8 )
 end_cell = Vector2( 19, 0 )
+
+[node name="UI" parent="." instance=ExtResource( 5 )]
+mouse_filter = 2
 
 [node name="terrain" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -21,6 +27,3 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 2, 0, 
 position = Vector2( 40, 119.75 )
 
 [node name="enemy_path" parent="." instance=ExtResource( 3 )]
-
-[node name="UI" parent="." instance=ExtResource( 5 )]
-mouse_filter = 2

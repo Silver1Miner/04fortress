@@ -14,11 +14,11 @@ var cell := Vector2.ZERO setget set_cell
 
 func _ready() -> void:
 	set_process(false)
+	set_physics_process(true)
 	self.cell = grid.get_cell_coordinates(position)
 	position = grid.get_map_position(cell)
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
-	test_walk()
 
 func _process(delta: float) -> void:
 	_path_follow.offset += move_speed * delta
@@ -47,6 +47,28 @@ func walk_along(path: PoolVector2Array) -> void:
 func _set_is_walking(value: bool) -> void:
 	_is_walking = value
 	set_process(_is_walking)
+
+var _position_last_frame := Vector2()
+var _cardinal_direction := 0
+var _cardinal_direction_last_frame := 0
+func _physics_process(_delta: float) -> void:
+	var motion = _sprite.position - _position_last_frame
+	if motion.length() > 0.001:
+		_cardinal_direction = int(4.0 * (motion.rotated(PI/4.0).angle() + PI) / TAU)
+	if _cardinal_direction != _cardinal_direction_last_frame:
+		match _cardinal_direction:
+			0:
+				_sprite.set_flip_h(true)
+				_animation_player.play("walk_left")
+			1:
+				_animation_player.play("walk_up")
+			2: # right
+				_sprite.set_flip_h(true)
+				_animation_player.play("walk_left")
+			3:
+				_animation_player.play("walk_down")
+	_position_last_frame = _sprite.position
+	_cardinal_direction_last_frame = _cardinal_direction
 
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:
