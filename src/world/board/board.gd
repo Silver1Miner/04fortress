@@ -6,14 +6,19 @@ export var end_cell := Vector2(19, 10)
 onready var terrain := $terrain
 onready var enemy_path := $enemy_path
 onready var player_cursor := $cursor
+onready var ui_controls := $UI
 
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _astar := AStar2D.new()
 
 var current_path := PoolVector2Array()
 
+#signal terrain_changed
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if ui_controls.connect("build_mode", self, "_on_build_mode_changed") != OK:
+		push_error("build mode signal connect fail")
 	var points := []
 	for x in 20:
 		for y in 12:
@@ -37,6 +42,7 @@ var terrain_data = {
 	1: {"name": "forest", "move_cost": 3},
 	2: {"name": "hills", "move_cost": 4},
 	3: {"name": "road", "move_cost": 1},
+	4: {"name": "barrier", "move_cost": 5}
 }
 
 func _add_and_connect_points(cell_mappings: Dictionary) -> void:
