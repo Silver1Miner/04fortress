@@ -4,13 +4,15 @@ export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
 export var end_cell := Vector2(19, 10)
 onready var terrain := $terrain
-onready var enemy_path := $enemy_path
+onready var path_display := $path_display
 onready var player_cursor := $cursor
 onready var ui_controls := $UI
+onready var enemy_path := $enemy_path
 
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _astar := AStar2D.new()
 var current_path := PoolVector2Array()
+
 var build_mode := -1
 var terrain_data = {
 	-1: {"name": "empty", "move_cost": 0},
@@ -38,14 +40,17 @@ func _ready() -> void:
 		for y in 12:
 			points.append(Vector2(x, y))
 	initialize_path(points)
-	enemy_path.draw_path(current_path)
+	path_display.draw_path(current_path)
 
 func initialize_path(walkable_cells: Array) -> void:
+	enemy_path.curve.clear_points()
 	var cell_mappings := {}
 	for cell in walkable_cells:
 		cell_mappings[cell] = grid.as_index(cell)
 	_add_and_connect_points(cell_mappings)
 	current_path = calculate_point_path(start_cell, end_cell)
+	for point in current_path:
+		enemy_path.curve.add_point(grid.get_map_position(point))
 
 func get_terrain_move_cost(cell) -> float:
 	return terrain_data[terrain.get_cellv(cell)]["move_cost"]
@@ -85,7 +90,7 @@ func _on_player_accept(cell) -> void:
 		terrain.set_cellv(cell, build_mode)
 		terrain.update_bitmask_region()
 		initialize_path(points)
-		enemy_path.draw_path(current_path)
+		path_display.draw_path(current_path)
 
 func _on_player_cancel(cell) -> void:
 	print("player pressed cancel at ", cell)
@@ -97,8 +102,15 @@ var unit = preload("res://src/world/unit/unit.tscn")
 func spawn_enemy_unit() -> void:
 	var unit_instance = unit.instance()
 	unit_instance.position = grid.get_map_position(start_cell)
+	if unit_instance.connect("end_reached", self, "_on_unit_reaching_end") != OK:
+		push_error("unit reaching end signal connect fail")
 	enemy_path.add_child(unit_instance)
-	unit_instance.walk_along(current_path)
+	unit_instance.walk()
+
+var units_reached_end := 0
+func _on_unit_reaching_end() -> void:
+	units_reached_end += 1
+	print("units reached end: ", units_reached_end)
 
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:

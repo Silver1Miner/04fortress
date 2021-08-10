@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/world/board/PathFinder.gd"
 }, {
-"base": "Path2D",
+"base": "PathFollow2D",
 "class": "Unit",
 "language": "GDScript",
 "path": "res://src/world/unit/unit.gd"
@@ -33,6 +33,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Fortress Terra"
+boot_splash/image="res://icon.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
 config/macos_native_icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"

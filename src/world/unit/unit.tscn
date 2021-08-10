@@ -6,29 +6,26 @@
 [ext_resource path="res://src/world/unit/unitwalk_left.tres" type="Animation" id=4]
 [ext_resource path="res://src/world/unit/unitwalk_up.tres" type="Animation" id=5]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[node name="Unit" type="Path2D"]
-curve = null
+[node name="Unit" type="PathFollow2D"]
+rotate = false
+loop = false
 script = ExtResource( 1 )
-move_speed = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/walk_down = ExtResource( 3 )
 anims/walk_left = ExtResource( 4 )
 anims/walk_up = ExtResource( 5 )
 
-[node name="PathFollow2D" type="PathFollow2D" parent="."]
-rotate = false
-
-[node name="Sprite" type="Sprite" parent="PathFollow2D"]
+[node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 3
 vframes = 3
-frame = 6
+frame = 3
 
-[node name="Area2D" type="Area2D" parent="PathFollow2D"]
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Area2D"]
-shape = SubResource( 4 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )

@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/world/board/Terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://src/world/player/cursor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/world/board/enemy_path.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/world/board/board.gd" type="Script" id=4]
 [ext_resource path="res://src/world/ui/UI.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array(  )
+}
 
 [node name="board" type="Control"]
 script = ExtResource( 4 )
@@ -26,4 +31,7 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 2, 0, 
 [node name="cursor" parent="." instance=ExtResource( 2 )]
 position = Vector2( 40, 119.75 )
 
-[node name="enemy_path" parent="." instance=ExtResource( 3 )]
+[node name="path_display" parent="." instance=ExtResource( 3 )]
+
+[node name="enemy_path" type="Path2D" parent="."]
+curve = SubResource( 1 )
