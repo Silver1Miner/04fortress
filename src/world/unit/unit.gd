@@ -13,6 +13,7 @@ var cell := Vector2.ZERO setget set_cell
 signal end_reached
 
 func _ready() -> void:
+	add_to_group("enemies")
 	set_process(false)
 	self.cell = grid.get_cell_coordinates(position)
 	position = grid.get_map_position(cell)
