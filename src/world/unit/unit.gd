@@ -1,13 +1,15 @@
 class_name Unit
 extends PathFollow2D
 
+export (PackedScene) var Explosion = preload("res://src/world/effects/explosion.tscn")
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var move_speed := 20 # pixels per second
-export var max_hp := 15
+export var max_hp := 10
 var _is_walking := false setget _set_is_walking
 onready var hp := max_hp setget set_hp
 onready var _animation_player: AnimationPlayer = $AnimationPlayer
 onready var _sprite: Sprite = $Sprite
+onready var _hp_bar: TextureProgress = $TextureProgress
 var cell := Vector2.ZERO setget set_cell
 
 signal end_reached
@@ -17,6 +19,8 @@ func _ready() -> void:
 	set_process(false)
 	self.cell = grid.get_cell_coordinates(position)
 	position = grid.get_map_position(cell)
+	_hp_bar.max_value = max_hp
+	_hp_bar.value = max_hp
 
 var _position_last_frame := Vector2()
 var _cardinal_direction := 0
@@ -35,7 +39,7 @@ func _process(delta: float) -> void:
 	if _cardinal_direction != _cardinal_direction_last_frame:
 		match _cardinal_direction:
 			0:
-				_sprite.set_flip_h(true)
+				_sprite.set_flip_h(false)
 				_animation_player.play("walk_left")
 			1:
 				_animation_player.play("walk_up")
@@ -47,11 +51,29 @@ func _process(delta: float) -> void:
 	_position_last_frame = position
 	_cardinal_direction_last_frame = _cardinal_direction
 
+func take_damage(damage_amount) -> void:
+	$damage_flash.frame = 0
+	$damage_flash.play()
+	print("took ", damage_amount, " damage")
+	set_hp(clamp(hp - damage_amount, 0, max_hp))
+
 func set_hp(new_hp) -> void:
 	hp = new_hp
+	_hp_bar.value = hp
+	print("unit hp is ", hp)
+	if hp <= 0:
+		print("unit destroyed")
+		create_explosion()
+		_animation_player.stop()
+		queue_free()
 
 func set_cell(value: Vector2) -> void:
 	cell = grid.clamp_to_board(value)
+
+func create_explosion() -> void:
+	var explosion_instance = Explosion.instance()
+	get_parent().add_child(explosion_instance)
+	explosion_instance.position = get_global_position()
 
 func walk() -> void:
 	_set_is_walking(true)

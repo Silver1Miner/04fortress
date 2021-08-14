@@ -38,4 +38,4 @@ position = Vector2( 40, 119.75 )
 curve = SubResource( 1 )
 
 [node name="tower" parent="." instance=ExtResource( 6 )]
-position = Vector2( 136.633, 86.2084 )
+position = Vector2( 104.592, 148.838 )
