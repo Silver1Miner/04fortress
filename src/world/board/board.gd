@@ -18,7 +18,7 @@ var terrain_data = {
 	-1: {"name": "empty", "move_cost": 0},
 	0: {"name": "plains", "move_cost": 2},
 	1: {"name": "forest", "move_cost": 3},
-	2: {"name": "hills", "move_cost": 4},
+	2: {"name": "hills", "move_cost": 5},
 	3: {"name": "road", "move_cost": 1},
 	4: {"name": "gen", "move_cost": 5},
 	5: {"name": "mg", "move_cost": 5},
@@ -36,6 +36,8 @@ func _ready() -> void:
 		push_error("player accept signal connect fail")
 	if player_cursor.connect("cancel_pressed", self, "_on_player_cancel") != OK:
 		push_error("player cancel signal connect fail")
+	if player_cursor.connect("cursor_moved", self, "_on_cursor_moved") != OK:
+		push_error("player move signal connect fail")
 	for x in 20:
 		for y in 12:
 			points.append(Vector2(x, y))
@@ -84,9 +86,24 @@ func _on_build_mode_changed(new_mode) -> void:
 	print("build mode changed to ", terrain_data[new_mode]["name"])
 	build_mode = new_mode
 
+func _on_cursor_moved(cell) -> void:
+	if build_mode in [4,5,6,7,8]:
+		if terrain.get_cellv(cell) in [0,4,5,6,7,8]:
+			player_cursor.set_color_mode(2)
+		else:
+			player_cursor.set_color_mode(1)
+	else:
+		player_cursor.set_color_mode(0)
+
 func _on_player_accept(cell) -> void:
 	print("player pressed accept at ", cell)
 	if build_mode != -1:
+		if build_mode in [4,5,6,7,8]:
+			if not terrain.get_cellv(cell) in [0,4,5,6,7,8]:
+				print("cannot build tower except on plain")
+				return
+			else:
+				terrain.build_tower(cell)
 		terrain.set_cellv(cell, build_mode)
 		terrain.update_bitmask_region()
 		initialize_path(points)

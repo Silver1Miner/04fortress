@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/sounds/346537__nioczkus__perdition-1911-pistol.ogg" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 64.0
+radius = 32.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {

@@ -18,7 +18,17 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="validity" type="ColorRect" parent="."]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 8.0
+margin_bottom = 8.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.0784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

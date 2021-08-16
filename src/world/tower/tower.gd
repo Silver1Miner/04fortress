@@ -15,6 +15,7 @@ onready var _laser_sight = $Line2D
 onready var _shoot_sound = $AudioStreamPlayer2D
 
 func _ready() -> void:
+	add_to_group("towers")
 	_laser_sight.add_point(Vector2.ZERO)
 	_laser_sight.add_point(Vector2.ZERO)
 	self.cell = grid.get_cell_coordinates(position)
@@ -28,11 +29,19 @@ func _physics_process(_delta: float) -> void:
 	if targets.empty():
 		_laser_sight.points[1] = Vector2.ZERO
 		return
-	var target: Node2D = targets[0]
-	_laser_sight.points[1] = target.global_position - position
-	aim_at(target.global_position)
-	if _cooldown_timer.is_stopped():
-		shoot_at(target)
+	#var target: Node2D = targets[0]
+	var target
+	for t in targets:
+		if t.get_parent().is_in_group("enemy"):
+			target = t
+			break
+	if target != null:
+		_laser_sight.points[1] = target.global_position - position
+		aim_at(target.global_position)
+		if _cooldown_timer.is_stopped():
+			shoot_at(target)
+	else:
+		_laser_sight.points[1] = Vector2.ZERO
 
 func shoot_at(target: Node2D) -> void:
 	_shot_effect.frame = 0
