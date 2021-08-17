@@ -3,11 +3,15 @@ extends Node2D
 
 export var is_hitscan := true
 export var attack_cooldown := 1.0
+export var attack_radius := 32
+export var attack_damage := 4
 
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
+export (PackedScene) var Bullet = preload("res://src/world/tower/bullet.tscn")
 var cell := Vector2.ZERO setget set_cell
 onready var _sprite: Sprite = $Sprite
 onready var _attack_range: Area2D = $attack_zone
+onready var _hit_radius := $attack_zone/CollisionShape2D
 onready var _cooldown_timer: Timer = $Timer
 onready var _ray = $RayCast2D
 onready var _shot_effect = $shot_flash
@@ -20,6 +24,7 @@ func _ready() -> void:
 	_laser_sight.add_point(Vector2.ZERO)
 	self.cell = grid.get_cell_coordinates(position)
 	position = grid.get_map_position(cell)
+	_hit_radius.shape.set_radius(attack_radius)
 
 func set_cell(value: Vector2) -> void:
 	cell = grid.clamp_to_board(value)
@@ -47,9 +52,16 @@ func shoot_at(target: Node2D) -> void:
 	_shot_effect.frame = 0
 	_shot_effect.play()
 	_shoot_sound.play()
-	if is_hitscan and target.get_parent().has_method("take_damage"):
-		print("take damage")
-		target.get_parent().take_damage(4)
+	if is_hitscan:
+		if target.get_parent().has_method("take_damage"):
+			print("take damage")
+			target.get_parent().take_damage(attack_damage)
+	else:
+		var bullet_instance = Bullet.instance()
+		get_parent().add_child(bullet_instance)
+		bullet_instance.position = get_global_position()
+		bullet_instance.rotation = _ray.cast_to.angle()
+		bullet_instance.damage = attack_damage
 	_cooldown_timer.start(attack_cooldown)
 
 var _cardinal_direction_last

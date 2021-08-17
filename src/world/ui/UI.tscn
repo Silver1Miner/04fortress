@@ -211,7 +211,7 @@ __meta__ = {
 [node name="options" type="VBoxContainer" parent="tower_bar/tower_build"]
 margin_top = 33.0
 margin_right = 80.0
-margin_bottom = 168.0
+margin_bottom = 197.0
 custom_constants/separation = 10
 
 [node name="build_gen" type="Button" parent="tower_bar/tower_build/options"]
@@ -247,3 +247,10 @@ margin_right = 80.0
 margin_bottom = 135.0
 toggle_mode = true
 text = "Rkts. $9000"
+
+[node name="remove" type="Button" parent="tower_bar/tower_build/options"]
+margin_top = 145.0
+margin_right = 80.0
+margin_bottom = 164.0
+toggle_mode = true
+text = "Demolish"

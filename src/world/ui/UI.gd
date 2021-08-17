@@ -13,6 +13,7 @@ onready var build_mg_button = $tower_bar/tower_build/options/build_mg
 onready var build_vul_button = $tower_bar/tower_build/options/build_vul
 onready var build_art_button = $tower_bar/tower_build/options/build_art
 onready var build_rkt_button = $tower_bar/tower_build/options/build_rkt
+onready var demolish_button = $tower_bar/tower_build/options/remove
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,6 +35,8 @@ func _ready() -> void:
 		push_error("button connect fail")
 	if build_rkt_button.connect("toggled", self, "_on_rkt_toggled") != OK:
 		push_error("button connect fail")
+	if demolish_button.connect("toggled", self, "_on_demolish_toggled") != OK:
+		push_error("demolish connect fail")
 
 func untoggle_terrain() -> void:
 	for button in $terrain_bar/VBoxContainer/options.get_children():
@@ -82,6 +85,7 @@ func _on_gen_toggled(toggled) -> void:
 		build_vul_button.pressed = false
 		build_art_button.pressed = false
 		build_rkt_button.pressed = false
+		demolish_button.pressed = false
 		untoggle_terrain()
 
 func _on_mg_toggled(toggled) -> void:
@@ -91,6 +95,7 @@ func _on_mg_toggled(toggled) -> void:
 		build_vul_button.pressed = false
 		build_art_button.pressed = false
 		build_rkt_button.pressed = false
+		demolish_button.pressed = false
 		untoggle_terrain()
 
 func _on_vul_toggled(toggled) -> void:
@@ -100,6 +105,7 @@ func _on_vul_toggled(toggled) -> void:
 		build_mg_button.pressed = false
 		build_art_button.pressed = false
 		build_rkt_button.pressed = false
+		demolish_button.pressed = false
 		untoggle_terrain()
 
 func _on_art_toggled(toggled) -> void:
@@ -109,6 +115,7 @@ func _on_art_toggled(toggled) -> void:
 		build_mg_button.pressed = false
 		build_vul_button.pressed = false
 		build_rkt_button.pressed = false
+		demolish_button.pressed = false
 		untoggle_terrain()
 
 func _on_rkt_toggled(toggled) -> void:
@@ -118,4 +125,15 @@ func _on_rkt_toggled(toggled) -> void:
 		build_mg_button.pressed = false
 		build_vul_button.pressed = false
 		build_art_button.pressed = false
+		demolish_button.pressed = false
+		untoggle_terrain()
+
+func _on_demolish_toggled(toggled) -> void:
+	if toggled:
+		emit_signal("build_mode", 9)
+		build_gen_button.pressed = false
+		build_mg_button.pressed = false
+		build_vul_button.pressed = false
+		build_art_button.pressed = false
+		build_rkt_button.pressed = false
 		untoggle_terrain()
