@@ -45,11 +45,17 @@ _global_script_class_icons={
 [application]
 
 config/name="Fortress Terra"
+config/description="Fight off waves of invaders using defensive towers and the terrain itself"
+run/main_scene="res://src/menu/MainMenu.tscn"
 boot_splash/image="res://icon.png"
 boot_splash/fullsize=false
 config/icon="res://icon.png"
 config/macos_native_icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
+
+[autoload]
+
+Audio="*res://src/audio/audio.tscn"
 
 [display]
 

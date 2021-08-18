@@ -38,6 +38,8 @@ func _ready() -> void:
 		push_error("player cancel signal connect fail")
 	if player_cursor.connect("cursor_moved", self, "_on_cursor_moved") != OK:
 		push_error("player move signal connect fail")
+	if enemy_path.connect("unit_damage", self, "_on_player_damage_taken") != OK:
+		push_error("unit damage signal connect fail")
 	for x in 20:
 		for y in 12:
 			points.append(Vector2(x, y))
@@ -130,22 +132,21 @@ func _on_player_cancel(cell) -> void:
 	ui_controls.untoggle_towers()
 	build_mode = -1
 
-var unit = preload("res://src/world/unit/unit.tscn")
-func spawn_enemy_unit() -> void:
-	var unit_instance = unit.instance()
-	unit_instance.position = grid.get_map_position(start_cell)
-	if unit_instance.connect("end_reached", self, "_on_unit_reaching_end") != OK:
-		push_error("unit reaching end signal connect fail")
-	enemy_path.add_child(unit_instance)
-	unit_instance.walk()
-
 var units_reached_end := 0
+var total_damage_taken := 0
+func _on_player_damage_taken(hp) -> void:
+	units_reached_end += 1
+	total_damage_taken += hp
+	print(total_damage_taken, " total damage taken")
+	
 func _on_unit_reaching_end() -> void:
 	units_reached_end += 1
 	print("units reached end: ", units_reached_end)
 
+var test_schedule = "u/0.5/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u"
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_home"):
-		print(current_path)
-		spawn_enemy_unit()
+		#print(current_path)
+		enemy_path.spawn_wave(test_schedule, start_cell)
+		#enemy_path.spawn_enemy_unit(start_cell)

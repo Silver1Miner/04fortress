@@ -12,7 +12,7 @@ onready var _sprite: Sprite = $Sprite
 onready var _hp_bar: TextureProgress = $TextureProgress
 var cell := Vector2.ZERO setget set_cell
 
-signal end_reached
+signal end_reached(hp)
 
 func _ready() -> void:
 	add_to_group("enemy")
@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 	if unit_offset >= 1.0:
 		self._is_walking = false
 		#_path_follow.offset = 0.0
-		emit_signal("end_reached")
+		emit_signal("end_reached", hp)
 		print("walk_finished")
 		queue_free()
 	var motion = position - _position_last_frame
