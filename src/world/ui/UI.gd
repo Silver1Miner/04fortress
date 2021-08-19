@@ -3,7 +3,7 @@ extends Control
 signal build_mode(mode)
 
 onready var money_label = $status_bar/status/money
-onready var wave_label = $status_bar/status/wave
+onready var hp_label = $status_bar/status/health
 onready var to_plain_button = $terrain_bar/VBoxContainer/options/to_plain
 onready var to_road_button = $terrain_bar/VBoxContainer/options/to_road
 onready var to_barrier_button = $terrain_bar/VBoxContainer/options/to_barrier
@@ -37,6 +37,12 @@ func _ready() -> void:
 		push_error("button connect fail")
 	if demolish_button.connect("toggled", self, "_on_demolish_toggled") != OK:
 		push_error("demolish connect fail")
+
+func update_money(new_value) -> void:
+	money_label.text = "$." + str(new_value)
+
+func update_health(new_value) -> void:
+	hp_label.text = "HP: " + str(new_value)
 
 func untoggle_terrain() -> void:
 	for button in $terrain_bar/VBoxContainer/options.get_children():

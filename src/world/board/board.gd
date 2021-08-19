@@ -1,5 +1,6 @@
 extends Control
 
+export var money := 2000
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
 export var end_cell := Vector2(19, 10)
@@ -15,16 +16,16 @@ var current_path := PoolVector2Array()
 
 var build_mode := -1
 var terrain_data = {
-	-1: {"name": "empty", "move_cost": 0},
-	0: {"name": "plains", "move_cost": 4},
-	1: {"name": "forest", "move_cost": 8},
-	2: {"name": "hills", "move_cost": 16},
-	3: {"name": "road", "move_cost": 1},
-	4: {"name": "gen", "move_cost": 16},
-	5: {"name": "mg", "move_cost": 16},
-	6: {"name": "vul", "move_cost": 16},
-	7: {"name": "art", "move_cost": 16},
-	8: {"name": "rkt", "move_cost": 16},
+	-1: {"name": "empty", "move_cost": 0, "cost": 0},
+	0: {"name": "plains", "move_cost": 4, "cost": 100},
+	1: {"name": "forest", "move_cost": 8, "cost": 200},
+	2: {"name": "hills", "move_cost": 16, "cost": 400},
+	3: {"name": "road", "move_cost": 1, "cost": 100},
+	4: {"name": "gen", "move_cost": 4, "cost": 1000},
+	5: {"name": "mg", "move_cost": 4, "cost": 1000},
+	6: {"name": "vul", "move_cost": 4, "cost": 4000},
+	7: {"name": "art", "move_cost": 4, "cost": 6000},
+	8: {"name": "rkt", "move_cost": 4, "cost": 9000},
 }
 var points := []
 
@@ -40,11 +41,14 @@ func _ready() -> void:
 		push_error("player move signal connect fail")
 	if enemy_path.connect("unit_damage", self, "_on_player_damage_taken") != OK:
 		push_error("unit damage signal connect fail")
+	if enemy_path.connect("unit_destroyed", self, "_on_unit_destroyed") != OK:
+		push_error("unit destroy signal connect fail")
 	for x in 20:
 		for y in 12:
 			points.append(Vector2(x, y))
 	initialize_path(points)
 	path_display.draw_path(current_path)
+	ui_controls.update_money(money)
 
 func initialize_path(walkable_cells: Array) -> void:
 	enemy_path.curve.clear_points()
@@ -91,7 +95,7 @@ func _on_build_mode_changed(new_mode) -> void:
 
 func _on_cursor_moved(cell) -> void:
 	if build_mode in [4,5,6,7,8]:
-		if terrain.get_cellv(cell) == 0:
+		if terrain.get_cellv(cell) == 0 and terrain_data[build_mode]["cost"] <= money:
 			player_cursor.set_color_mode(2)
 		else:
 			player_cursor.set_color_mode(1)
@@ -110,8 +114,12 @@ func _on_player_accept(cell) -> void:
 			if terrain.get_cellv(cell) != 0:
 				print("cannot build tower except on plain")
 				return
+			elif terrain_data[build_mode]["cost"] > money:
+				print("not enough funds")
+				return
 			else:
 				terrain.build_tower(cell, build_mode)
+				money_transaction(money - terrain_data[build_mode]["cost"])
 		elif build_mode == 9:
 			if not terrain.get_cellv(cell) in [4,5,6,7,8]:
 				print("no tower to demolish")
@@ -132,18 +140,25 @@ func _on_player_cancel(cell) -> void:
 	ui_controls.untoggle_towers()
 	build_mode = -1
 
+func money_transaction(new_money) -> void:
+	money = new_money
+	ui_controls.update_money(money)
+
 var units_reached_end := 0
 var total_damage_taken := 0
 func _on_player_damage_taken(hp) -> void:
 	units_reached_end += 1
 	total_damage_taken += hp
 	print(total_damage_taken, " total damage taken")
-	
+
+func _on_unit_destroyed(bounty) -> void:
+	money_transaction(money + bounty)
+
 func _on_unit_reaching_end() -> void:
 	units_reached_end += 1
 	print("units reached end: ", units_reached_end)
 
-var test_schedule = "u/0.5/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u"
+var test_schedule = "u/1/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u"
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_home"):

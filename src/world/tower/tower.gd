@@ -5,6 +5,7 @@ export var is_hitscan := true
 export var attack_cooldown := 1.0
 export var attack_radius := 32
 export var attack_damage := 4
+export var tower_value := 1000
 
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export (PackedScene) var Bullet = preload("res://src/world/tower/bullet.tscn")
@@ -54,7 +55,6 @@ func shoot_at(target: Node2D) -> void:
 	_shoot_sound.play()
 	if is_hitscan:
 		if target.get_parent().has_method("take_damage"):
-			print("take damage")
 			target.get_parent().take_damage(attack_damage)
 	else:
 		var bullet_instance = Bullet.instance()

@@ -1,20 +1,22 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/world/tower/tower.gd" type="Script" id=1]
-[ext_resource path="res://assets/towers/vul-Sheet.png" type="Texture" id=2]
-[ext_resource path="res://assets/effects/shotThin.png" type="Texture" id=3]
+[ext_resource path="res://assets/towers/generator-Sheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/effects/left.png" type="Texture" id=3]
 [ext_resource path="res://assets/sounds/346537__nioczkus__perdition-1911-pistol.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/effects/right.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
 radius = 32.0
 
 [sub_resource type="SpriteFrames" id=2]
+resource_local_to_scene = true
 animations = [ {
-"frames": [ null, ExtResource( 3 ), null ],
+"frames": [ null, ExtResource( 3 ), ExtResource( 5 ), null ],
 "loop": false,
 "name": "default",
-"speed": 10.0
+"speed": 20.0
 } ]
 
 [node name="tower" type="Node2D"]

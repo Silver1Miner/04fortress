@@ -3,7 +3,9 @@ extends TileMap
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export (PackedScene) var GTower = preload("res://src/world/tower/tower.tscn")
 export (PackedScene) var MTower = preload("res://src/world/tower/guntower.tscn")
+export (PackedScene) var VTower = preload("res://src/world/tower/vulcan.tscn")
 export (PackedScene) var ATower = preload("res://src/world/tower/artillery.tscn")
+export (PackedScene) var RTower = preload("res://src/world/tower/rockets.tscn")
 
 var towers = {}
 
@@ -19,11 +21,11 @@ func build_tower(cell, type) -> void:
 		5: # MG
 			tower_instance = MTower.instance()
 		6: # Vulcan
-			tower_instance = GTower.instance()
+			tower_instance = VTower.instance()
 		7: # Artillery
 			tower_instance = ATower.instance()
 		8: # Rockets
-			tower_instance = GTower.instance()
+			tower_instance = RTower.instance()
 	towers[cell] = tower_instance
 	add_child(tower_instance)
 	tower_instance.position = grid.get_map_position(cell)

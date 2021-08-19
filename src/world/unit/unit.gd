@@ -4,7 +4,8 @@ extends PathFollow2D
 export (PackedScene) var Explosion = preload("res://src/world/effects/explosion.tscn")
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var move_speed := 20 # pixels per second
-export var max_hp := 10
+export var max_hp := 20
+export var bounty := 500
 var _is_walking := false setget _set_is_walking
 onready var hp := max_hp setget set_hp
 onready var _animation_player: AnimationPlayer = $AnimationPlayer
@@ -12,6 +13,7 @@ onready var _sprite: Sprite = $Sprite
 onready var _hp_bar: TextureProgress = $TextureProgress
 var cell := Vector2.ZERO setget set_cell
 
+signal unit_destroyed(bounty)
 signal end_reached(hp)
 
 func _ready() -> void:
@@ -54,15 +56,13 @@ func _process(delta: float) -> void:
 func take_damage(damage_amount) -> void:
 	$damage_flash.frame = 0
 	$damage_flash.play()
-	print("took ", damage_amount, " damage")
 	set_hp(clamp(hp - damage_amount, 0, max_hp))
 
 func set_hp(new_hp) -> void:
 	hp = new_hp
 	_hp_bar.value = hp
-	print("unit hp is ", hp)
 	if hp <= 0:
-		print("unit destroyed")
+		emit_signal("unit_destroyed", bounty)
 		create_explosion()
 		_animation_player.stop()
 		queue_free()
