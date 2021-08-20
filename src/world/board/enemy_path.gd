@@ -2,13 +2,20 @@ extends Path2D
 
 signal unit_damage(damage)
 signal unit_destroyed(bounty)
+signal unit_count(number_in_wave)
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 
 func spawn_wave(wave_schedule: String, start_cell) -> void:
 	var schedule = wave_schedule.split("/")
+	var number_in_wave = 0
+	for s in schedule:
+		if s == "u":
+			number_in_wave += 1
+	emit_signal("unit_count", number_in_wave)
 	for s in schedule:
 		if s == "u":
 			spawn_enemy_unit(start_cell)
+			number_in_wave += 1
 		elif s.is_valid_float():
 			var time = float(s)
 			yield(get_tree().create_timer(time), "timeout")

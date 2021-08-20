@@ -1,6 +1,6 @@
 extends Control
 
-export var money := 2000
+export var money := 4000
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
 export var end_cell := Vector2(19, 10)
@@ -9,6 +9,9 @@ onready var path_display := $path_display
 onready var player_cursor := $cursor
 onready var ui_controls := $UI
 onready var enemy_path := $enemy_path
+var unit_count := 0
+var wave_in_progress := false
+var hp := 100
 
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _astar := AStar2D.new()
@@ -21,11 +24,11 @@ var terrain_data = {
 	1: {"name": "forest", "move_cost": 8, "cost": 200},
 	2: {"name": "hills", "move_cost": 16, "cost": 400},
 	3: {"name": "road", "move_cost": 1, "cost": 100},
-	4: {"name": "gen", "move_cost": 4, "cost": 1000},
-	5: {"name": "mg", "move_cost": 4, "cost": 1000},
-	6: {"name": "vul", "move_cost": 4, "cost": 4000},
-	7: {"name": "art", "move_cost": 4, "cost": 6000},
-	8: {"name": "rkt", "move_cost": 4, "cost": 9000},
+	4: {"name": "gen", "move_cost": 16, "cost": 1000},
+	5: {"name": "mg", "move_cost": 16, "cost": 1000},
+	6: {"name": "vul", "move_cost": 16, "cost": 4000},
+	7: {"name": "art", "move_cost": 16, "cost": 6000},
+	8: {"name": "rkt", "move_cost": 16, "cost": 9000},
 }
 var points := []
 
@@ -43,12 +46,15 @@ func _ready() -> void:
 		push_error("unit damage signal connect fail")
 	if enemy_path.connect("unit_destroyed", self, "_on_unit_destroyed") != OK:
 		push_error("unit destroy signal connect fail")
-	for x in 20:
-		for y in 12:
+	if enemy_path.connect("unit_count", self, "_on_unit_count_determined") != OK:
+		push_error("unit count signal connect fail")
+	for x in 25:
+		for y in 15:
 			points.append(Vector2(x, y))
 	initialize_path(points)
 	path_display.draw_path(current_path)
 	ui_controls.update_money(money)
+	ui_controls.update_health(hp)
 
 func initialize_path(walkable_cells: Array) -> void:
 	enemy_path.curve.clear_points()
@@ -94,6 +100,11 @@ func _on_build_mode_changed(new_mode) -> void:
 	build_mode = new_mode
 
 func _on_cursor_moved(cell) -> void:
+	if build_mode in [0,1,2,3]:
+		if not terrain.get_cellv(cell) in [4,5,6,7,8] and terrain_data[build_mode]["cost"] <= money:
+			player_cursor.set_color_mode(2)
+		else:
+			player_cursor.set_color_mode(1)
 	if build_mode in [4,5,6,7,8]:
 		if terrain.get_cellv(cell) == 0 and terrain_data[build_mode]["cost"] <= money:
 			player_cursor.set_color_mode(2)
@@ -110,6 +121,16 @@ func _on_cursor_moved(cell) -> void:
 func _on_player_accept(cell) -> void:
 	print("player pressed accept at ", cell)
 	if build_mode != -1:
+		if build_mode in [0,1,2,3]:
+			if terrain.get_cellv(cell) in [4,5,6,7,8]:
+				print("cannot change terrain under tower")
+				return
+			elif terrain_data[build_mode]["cost"] > money:
+				print("not enough funds")
+				return
+			else:
+				terrain.set_cellv(cell, build_mode)
+				money_transaction(money - terrain_data[build_mode]["cost"])
 		if build_mode in [4,5,6,7,8]:
 			if terrain.get_cellv(cell) != 0:
 				print("cannot build tower except on plain")
@@ -119,6 +140,7 @@ func _on_player_accept(cell) -> void:
 				return
 			else:
 				terrain.build_tower(cell, build_mode)
+				terrain.set_cellv(cell, build_mode)
 				money_transaction(money - terrain_data[build_mode]["cost"])
 		elif build_mode == 9:
 			if not terrain.get_cellv(cell) in [4,5,6,7,8]:
@@ -126,12 +148,11 @@ func _on_player_accept(cell) -> void:
 				return
 			else:
 				terrain.remove_tower(cell)
-		if build_mode in [0,1,2,3,4,5,6,7,8]:
-			terrain.set_cellv(cell, build_mode)
-		else:
-			terrain.set_cellv(cell, 0)
+				money_transaction(money - terrain_data[terrain.get_cellv(cell)]["cost"]/2)
+				terrain.set_cellv(cell, 0)
 		terrain.update_bitmask_region()
-		initialize_path(points)
+		if not wave_in_progress:
+			initialize_path(points)
 		path_display.draw_path(current_path)
 
 func _on_player_cancel(cell) -> void:
@@ -141,27 +162,49 @@ func _on_player_cancel(cell) -> void:
 	build_mode = -1
 
 func money_transaction(new_money) -> void:
-	money = new_money
+	money = int(clamp(new_money, 0, 99999))
 	ui_controls.update_money(money)
 
 var units_reached_end := 0
+var units_destroyed := 0
 var total_damage_taken := 0
-func _on_player_damage_taken(hp) -> void:
+func _on_player_damage_taken(unit_hp) -> void:
 	units_reached_end += 1
-	total_damage_taken += hp
-	print(total_damage_taken, " total damage taken")
+	hp = int(clamp(hp - unit_hp, 0, 100))
+	ui_controls.update_health(hp)
+	if hp <= 0:
+		print("player lost")
+	total_damage_taken += unit_hp
+	if units_destroyed + units_reached_end == unit_count:
+		prepare_for_next_wave()
+	print("units remaining: ", unit_count - units_reached_end - units_destroyed)
+	#print(total_damage_taken, " total damage taken")
 
 func _on_unit_destroyed(bounty) -> void:
+	units_destroyed += 1
 	money_transaction(money + bounty)
+	if units_destroyed + units_reached_end == unit_count:
+		prepare_for_next_wave()
+	print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 
-func _on_unit_reaching_end() -> void:
-	units_reached_end += 1
-	print("units reached end: ", units_reached_end)
+func _on_unit_count_determined(count) -> void:
+	print("units in this wave is: ", count)
+	unit_count = count
+
+func prepare_for_next_wave() -> void:
+	units_destroyed = 0
+	units_reached_end = 0
+	unit_count = 0
+	wave_in_progress = false
+	initialize_path(points)
+	path_display.draw_path(current_path)
 
 var test_schedule = "u/1/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u"
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_home"):
-		#print(current_path)
-		enemy_path.spawn_wave(test_schedule, start_cell)
-		#enemy_path.spawn_enemy_unit(start_cell)
+		if not wave_in_progress:
+			enemy_path.spawn_wave(test_schedule, start_cell)
+			wave_in_progress = true
+		else:
+			print("cannot start wave already in progress")

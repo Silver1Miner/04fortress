@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 		self._is_walking = false
 		#_path_follow.offset = 0.0
 		emit_signal("end_reached", hp)
-		print("walk_finished")
+		#print("walk finished")
 		queue_free()
 	var motion = position - _position_last_frame
 	if motion.length() > 0.01:
