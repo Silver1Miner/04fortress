@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/themes/UI.tres" type="Theme" id=1]
+[ext_resource path="res://src/world/effects/FCT.gd" type="Script" id=2]
+
+[node name="FCT" type="Label"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 1 )
+text = "0"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

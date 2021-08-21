@@ -2,6 +2,7 @@ class_name Unit
 extends PathFollow2D
 
 export (PackedScene) var Explosion = preload("res://src/world/effects/explosion.tscn")
+export (PackedScene) var FCT = preload("res://src/world/effects/FCT.tscn")
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var move_speed := 20 # pixels per second
 export var max_hp := 20
@@ -56,12 +57,20 @@ func _process(delta: float) -> void:
 func take_damage(damage_amount) -> void:
 	$damage_flash.frame = 0
 	$damage_flash.play()
+	var fct = FCT.instance()
+	get_parent().add_child(fct)
+	fct.rect_position = get_global_position() + Vector2(0,-16)
+	fct.show_value(str(damage_amount), Vector2(0,-8), 1, PI/2)
 	set_hp(clamp(hp - damage_amount, 0, max_hp))
 
 func set_hp(new_hp) -> void:
 	hp = new_hp
 	_hp_bar.value = hp
 	if hp <= 0:
+		var fct = FCT.instance()
+		get_parent().add_child(fct)
+		fct.rect_position = get_global_position()
+		fct.show_value("+$" + str(bounty), Vector2(0,-8), 1, PI/2, true, Color(0,1,0))
 		emit_signal("unit_destroyed", bounty)
 		create_explosion()
 		_animation_player.stop()

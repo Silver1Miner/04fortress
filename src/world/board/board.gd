@@ -148,7 +148,7 @@ func _on_player_accept(cell) -> void:
 				return
 			else:
 				terrain.remove_tower(cell)
-				money_transaction(money - terrain_data[terrain.get_cellv(cell)]["cost"]/2)
+				money_transaction(money + terrain_data[terrain.get_cellv(cell)]["cost"]/2)
 				terrain.set_cellv(cell, 0)
 		terrain.update_bitmask_region()
 		if not wave_in_progress:
@@ -177,7 +177,8 @@ func _on_player_damage_taken(unit_hp) -> void:
 	total_damage_taken += unit_hp
 	if units_destroyed + units_reached_end == unit_count:
 		prepare_for_next_wave()
-	print("units remaining: ", unit_count - units_reached_end - units_destroyed)
+	ui_controls.update_wave_unit_count(unit_count - units_reached_end - units_destroyed)
+	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 	#print(total_damage_taken, " total damage taken")
 
 func _on_unit_destroyed(bounty) -> void:
@@ -185,12 +186,14 @@ func _on_unit_destroyed(bounty) -> void:
 	money_transaction(money + bounty)
 	if units_destroyed + units_reached_end == unit_count:
 		prepare_for_next_wave()
-	print("units remaining: ", unit_count - units_reached_end - units_destroyed)
+	ui_controls.update_wave_unit_count(unit_count - units_reached_end - units_destroyed)
+	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 
 func _on_unit_count_determined(count) -> void:
 	print("units in this wave is: ", count)
 	unit_count = count
 
+var wave_number := 2
 func prepare_for_next_wave() -> void:
 	units_destroyed = 0
 	units_reached_end = 0
@@ -198,13 +201,20 @@ func prepare_for_next_wave() -> void:
 	wave_in_progress = false
 	initialize_path(points)
 	path_display.draw_path(current_path)
+	wave_number += 1
+	ui_controls.update_wave_number(wave_number)
+	ui_controls.update_wave_unit_count("?")
+
+func start_next_wave() -> void:
+	if not wave_in_progress:
+		wave_in_progress = true
+		enemy_path.spawn_wave(test_schedule, start_cell)
+		ui_controls.update_wave_unit_count(unit_count)
+	else:
+		print("cannot start wave already in progress")
 
 var test_schedule = "u/1/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u"
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_home"):
-		if not wave_in_progress:
-			enemy_path.spawn_wave(test_schedule, start_cell)
-			wave_in_progress = true
-		else:
-			print("cannot start wave already in progress")
+		start_next_wave()
