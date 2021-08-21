@@ -1,6 +1,7 @@
 extends Control
 
 signal build_mode(mode)
+signal next_wave
 
 onready var money_label = $status_bar/status/money
 onready var hp_label = $status_bar/status/health
@@ -176,4 +177,7 @@ func _on_demolish_toggled(toggled) -> void:
 		emit_signal("build_mode", -1)
 
 func _on_next_wave_button_pressed() -> void:
-	print("next wave button pressed")
+	emit_signal("next_wave")
+
+func enable_next_wave_button(ready: bool) -> void:
+	next_wave_button.disabled = !ready

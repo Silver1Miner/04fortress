@@ -13,6 +13,9 @@ onready var _animation_player: AnimationPlayer = $AnimationPlayer
 onready var _sprite: Sprite = $Sprite
 onready var _hp_bar: TextureProgress = $TextureProgress
 var cell := Vector2.ZERO setget set_cell
+var terrain = null
+var terrain_speeds := [20, 10, 5, 25, 5, 5, 5, 5, 5]
+# 0 plains, 1 forest, 2 hills, 3 road, 4-8 towers,
 
 signal unit_destroyed(bounty)
 signal end_reached(hp)
@@ -24,12 +27,17 @@ func _ready() -> void:
 	position = grid.get_map_position(cell)
 	_hp_bar.max_value = max_hp
 	_hp_bar.value = max_hp
+	terrain = get_parent().get_parent().get_node("terrain")
 
+var _last_cell := cell
 var _position_last_frame := Vector2()
 var _cardinal_direction := 0
 var _cardinal_direction_last_frame := 0
 func _process(delta: float) -> void:
 	offset += move_speed * delta
+	if grid.get_cell_coordinates(position) != _last_cell:
+		_last_cell = grid.get_cell_coordinates(position)
+		move_speed = terrain_speeds[terrain.get_cellv(grid.get_cell_coordinates(position))]
 	if unit_offset >= 1.0:
 		self._is_walking = false
 		#_path_follow.offset = 0.0

@@ -1,6 +1,7 @@
 extends Control
 
-export var money := 4000
+export var sandbox := true
+export var money := 100000
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
 export var end_cell := Vector2(19, 10)
@@ -36,6 +37,8 @@ var points := []
 func _ready() -> void:
 	if ui_controls.connect("build_mode", self, "_on_build_mode_changed") != OK:
 		push_error("build mode signal connect fail")
+	if ui_controls.connect("next_wave", self, "start_next_wave") != OK:
+		push_error("next wave signal connect fail")
 	if player_cursor.connect("accept_pressed", self, "_on_player_accept") != OK:
 		push_error("player accept signal connect fail")
 	if player_cursor.connect("cancel_pressed", self, "_on_player_cancel") != OK:
@@ -177,7 +180,8 @@ func _on_player_damage_taken(unit_hp) -> void:
 	total_damage_taken += unit_hp
 	if units_destroyed + units_reached_end == unit_count:
 		prepare_for_next_wave()
-	ui_controls.update_wave_unit_count(unit_count - units_reached_end - units_destroyed)
+	var current_count = clamp(unit_count - units_reached_end - units_destroyed,0,unit_count)
+	ui_controls.update_wave_unit_count(current_count)
 	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 	#print(total_damage_taken, " total damage taken")
 
@@ -186,14 +190,15 @@ func _on_unit_destroyed(bounty) -> void:
 	money_transaction(money + bounty)
 	if units_destroyed + units_reached_end == unit_count:
 		prepare_for_next_wave()
-	ui_controls.update_wave_unit_count(unit_count - units_reached_end - units_destroyed)
+	var current_count = clamp(unit_count - units_reached_end - units_destroyed,0,unit_count)
+	ui_controls.update_wave_unit_count(current_count)
 	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 
 func _on_unit_count_determined(count) -> void:
 	print("units in this wave is: ", count)
 	unit_count = count
 
-var wave_number := 2
+var wave_number := 1
 func prepare_for_next_wave() -> void:
 	units_destroyed = 0
 	units_reached_end = 0
@@ -204,12 +209,17 @@ func prepare_for_next_wave() -> void:
 	wave_number += 1
 	ui_controls.update_wave_number(wave_number)
 	ui_controls.update_wave_unit_count("?")
+	ui_controls.enable_next_wave_button(true)
 
 func start_next_wave() -> void:
 	if not wave_in_progress:
+		ui_controls.enable_next_wave_button(false)
 		wave_in_progress = true
-		enemy_path.spawn_wave(test_schedule, start_cell)
-		ui_controls.update_wave_unit_count(unit_count)
+		if sandbox:
+			enemy_path.spawn_wave(test_schedule, start_cell)
+			ui_controls.update_wave_unit_count(unit_count)
+		else:
+			print("campaign not written yet")
 	else:
 		print("cannot start wave already in progress")
 
