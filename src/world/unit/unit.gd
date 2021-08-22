@@ -80,7 +80,7 @@ func take_damage(damage_amount) -> void:
 	$damage_flash.frame = 0
 	$damage_flash.play()
 	var fct = FCT.instance()
-	get_parent().add_child(fct)
+	get_parent().get_node("effects").add_child(fct)
 	fct.rect_position = get_global_position() + Vector2(0,-16)
 	fct.show_value(str(damage_amount), Vector2(0,-8), 1, PI/2)
 	set_hp(clamp(hp - damage_amount, 0, max_hp))
@@ -91,7 +91,7 @@ func set_hp(new_hp) -> void:
 	if hp <= 0:
 		invulnerable = true
 		var fct = FCT.instance()
-		get_parent().add_child(fct)
+		get_parent().get_node("effects").add_child(fct)
 		fct.rect_position = get_global_position()
 		fct.show_value("+$" + str(bounty), Vector2(0,-8), 1, PI/2, true, Color(0,1,0))
 		create_explosion()

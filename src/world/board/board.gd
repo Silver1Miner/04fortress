@@ -181,20 +181,20 @@ func _on_player_damage_taken(unit_hp) -> void:
 	if hp <= 0:
 		print("player lost")
 	total_damage_taken += unit_hp
-	if units_destroyed + units_reached_end == unit_count:
+	ui_controls.update_wave_unit_count(clamp(unit_count-units_destroyed-units_reached_end,0,unit_count))
+	if clamp(unit_count-units_destroyed-units_reached_end,0,unit_count) == 0:
+		print(enemy_path.get_child_count() - 2 == 0)
 		prepare_for_next_wave()
-	var current_count = clamp(unit_count - units_reached_end - units_destroyed,0,unit_count)
-	ui_controls.update_wave_unit_count(current_count)
 	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 	#print(total_damage_taken, " total damage taken")
 
 func _on_unit_destroyed(bounty) -> void:
 	units_destroyed += 1
 	money_transaction(money + bounty)
-	if units_destroyed + units_reached_end == unit_count:
+	ui_controls.update_wave_unit_count(clamp(unit_count-units_destroyed-units_reached_end,0,unit_count))
+	if clamp(unit_count-units_destroyed-units_reached_end,0,unit_count) == 0:
+		print(enemy_path.get_child_count() - 2 == 0)
 		prepare_for_next_wave()
-	var current_count = clamp(unit_count - units_reached_end - units_destroyed,0,unit_count)
-	ui_controls.update_wave_unit_count(current_count)
 	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 
 func _on_unit_count_determined(count) -> void:
