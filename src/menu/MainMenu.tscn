@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/themes/UI.tres" type="Theme" id=1]
 [ext_resource path="res://src/menu/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/main-menu.png" type="Texture" id=3]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -15,10 +16,12 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.5
-margin_top = -0.5
-margin_right = 0.5
-margin_bottom = -0.5
+margin_left = -6.0
+margin_top = -15.0
+margin_right = 2074.0
+margin_bottom = 1485.0
+rect_scale = Vector2( 0.19, 0.19 )
+texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -53,10 +56,74 @@ text = "SANDBOX"
 margin_top = 70.0
 margin_right = 81.0
 margin_bottom = 89.0
-text = "SETTINGS"
+text = "CREDITS"
 
 [node name="quit" type="Button" parent="options"]
 margin_top = 105.0
 margin_right = 81.0
 margin_bottom = 124.0
 text = "QUIT"
+
+[node name="version" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -85.0
+margin_bottom = 13.0
+text = "v0.1.0 Pre-Alpha "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="copyright" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_top = -13.0
+text = "Copyright © 2021 Jack Anderson "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="campaign_menu" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.27451 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="settings_menu" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.705882 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="credits" type="Label" parent="settings_menu"]
+margin_left = 260.0
+margin_top = 40.0
+margin_right = 460.0
+margin_bottom = 261.0
+text = "CREDITS
+
+Fortress Terra
+by Jack Anderson
+
+Soundtrack
+Terra Tactics - Vav
+Approaching Blizzard - Yanagi Seigen
+Turning Gear - Yanagi Seigen
+
+Additional Assets from
+opengameart.org
+kenney.nl
+freesound.org"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

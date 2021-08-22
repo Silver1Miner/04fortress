@@ -18,6 +18,7 @@ onready var demolish_button = $tower_bar/tower_build/options/remove
 onready var wave_number = $next_wave/wave_status/wave_number
 onready var wave_unit_count = $next_wave/wave_status/wave_unit_count
 onready var next_wave_button = $next_wave/wave_status/next_wave_button
+onready var pause_menu = $pause_menu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,6 +44,15 @@ func _ready() -> void:
 		push_error("demolish connect fail")
 	if next_wave_button.connect("pressed", self, "_on_next_wave_button_pressed") != OK:
 		push_error("next wave button connect fail")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		if get_tree().paused:
+			pause_menu.visible = false
+			get_tree().paused = false
+		else:
+			pause_menu.visible = true
+			get_tree().paused = true
 
 func update_money(new_value) -> void:
 	money_label.text = "$." + str(new_value)

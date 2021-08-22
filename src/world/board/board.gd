@@ -1,7 +1,6 @@
 extends Control
 
-export var sandbox := true
-export var money := 100000
+export var money := 10000
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
 export var end_cell := Vector2(19, 10)
@@ -10,6 +9,7 @@ onready var path_display := $path_display
 onready var player_cursor := $cursor
 onready var ui_controls := $UI
 onready var enemy_path := $enemy_path
+onready var wave_schedules := $wave_schedules
 var unit_count := 0
 var wave_in_progress := false
 var hp := 100
@@ -21,7 +21,7 @@ var current_path := PoolVector2Array()
 var build_mode := -1
 var terrain_data = {
 	-1: {"name": "empty", "move_cost": 0, "cost": 0},
-	0: {"name": "plains", "move_cost": 4, "cost": 100},
+	0: {"name": "plains", "move_cost": 4, "cost": -100},
 	1: {"name": "forest", "move_cost": 8, "cost": 200},
 	2: {"name": "hills", "move_cost": 16, "cost": 400},
 	3: {"name": "road", "move_cost": 1, "cost": 100},
@@ -215,15 +215,14 @@ func start_next_wave() -> void:
 	if not wave_in_progress:
 		ui_controls.enable_next_wave_button(false)
 		wave_in_progress = true
-		if sandbox:
-			enemy_path.spawn_wave(test_schedule, start_cell)
+		if PlayerData.sandbox:
+			enemy_path.spawn_wave(wave_schedules.default, start_cell)
 			ui_controls.update_wave_unit_count(unit_count)
 		else:
 			print("campaign not written yet")
 	else:
 		print("cannot start wave already in progress")
 
-var test_schedule = "u/1/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u"
 # DEBUGGING
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_home"):

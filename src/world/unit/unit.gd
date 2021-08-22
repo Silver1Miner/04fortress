@@ -7,6 +7,10 @@ export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var move_speed := 20 # pixels per second
 export var max_hp := 20
 export var bounty := 500
+export var plain_speed := 20
+export var forest_speed := 10
+export var barrier_speed := 5
+export var road_speed := 25
 var _is_walking := false setget _set_is_walking
 onready var hp := max_hp setget set_hp
 onready var _animation_player: AnimationPlayer = $AnimationPlayer
@@ -14,8 +18,6 @@ onready var _sprite: Sprite = $Sprite
 onready var _hp_bar: TextureProgress = $TextureProgress
 var cell := Vector2.ZERO setget set_cell
 var terrain = null
-var terrain_speeds := [20, 10, 5, 25, 5, 5, 5, 5, 5]
-# 0 plains, 1 forest, 2 hills, 3 road, 4-8 towers,
 
 signal unit_destroyed(bounty)
 signal end_reached(hp)
@@ -37,7 +39,16 @@ func _process(delta: float) -> void:
 	offset += move_speed * delta
 	if grid.get_cell_coordinates(position) != _last_cell:
 		_last_cell = grid.get_cell_coordinates(position)
-		move_speed = terrain_speeds[terrain.get_cellv(grid.get_cell_coordinates(position))]
+		var current_terrain = terrain.get_cellv(grid.get_cell_coordinates(position))
+		# 0 plains, 1 forest, 2 hills, 3 road, 4-8 towers
+		if current_terrain in [2,4,5,6,7,8]:
+			move_speed = barrier_speed
+		elif current_terrain == 0:
+			move_speed = plain_speed
+		elif current_terrain == 1:
+			move_speed = forest_speed
+		elif current_terrain == 3:
+			move_speed = road_speed
 	if unit_offset >= 1.0:
 		self._is_walking = false
 		#_path_follow.offset = 0.0

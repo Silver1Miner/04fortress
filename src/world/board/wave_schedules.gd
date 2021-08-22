@@ -1,8 +1,8 @@
 extends Node
 
-var default = "u/1/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u"
+var default = "i,1,a,2,m,3,s,1,i,1,i,4,i,1,i,1,i,1,i"
 
 var campaign := {
-	1: "u/1/u/2/u/3/u/1/u/1/u/4/u/1/u/1/u/1/u",
-	2: "u/1/u/1/u/2/u/1/u/1/u/2/u/1/u/1/u/1/u/2/u/1/u/1/u"
+	1: "i,1,i,2,i,3,i,1,i,1,i,4,i,1,i,1,i,1,i",
+	2: "i,1,i,1,i,2,i,1,i,1,i,2,i,1,i,1,i,1,i,2,i,1,i,1,i"
 }

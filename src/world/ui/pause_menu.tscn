@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/world/ui/pause_menu.gd" type="Script" id=1]
+
+[node name="pause_menu" type="ColorRect"]
+pause_mode = 2
+visible = false
+margin_right = 480.0
+margin_bottom = 300.0
+color = Color( 0, 0, 0, 0.705882 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pause_options" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -38.5
+margin_top = -44.5
+margin_right = 38.5
+margin_bottom = 44.5
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="Button" parent="pause_options"]
+margin_right = 77.0
+margin_bottom = 19.0
+text = "Unpause"
+
+[node name="restart_level" type="Button" parent="pause_options"]
+margin_top = 35.0
+margin_right = 77.0
+margin_bottom = 54.0
+text = "Restart Level"
+
+[node name="main_menu" type="Button" parent="pause_options"]
+margin_top = 70.0
+margin_right = 77.0
+margin_bottom = 89.0
+text = "Main Menu"
