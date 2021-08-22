@@ -28,18 +28,18 @@ __meta__ = {
 }
 
 [node name="back" type="Button" parent="pause_options"]
-margin_right = 77.0
-margin_bottom = 19.0
-text = "Unpause"
+margin_right = 95.0
+margin_bottom = 20.0
+text = "Resume"
 
 [node name="restart_level" type="Button" parent="pause_options"]
-margin_top = 35.0
-margin_right = 77.0
-margin_bottom = 54.0
+margin_top = 36.0
+margin_right = 95.0
+margin_bottom = 56.0
 text = "Restart Level"
 
 [node name="main_menu" type="Button" parent="pause_options"]
-margin_top = 70.0
-margin_right = 77.0
-margin_bottom = 89.0
+margin_top = 72.0
+margin_right = 95.0
+margin_bottom = 92.0
 text = "Main Menu"

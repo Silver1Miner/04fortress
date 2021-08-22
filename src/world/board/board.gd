@@ -1,6 +1,6 @@
 extends Control
 
-export var money := 10000
+export var money := 300
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
 export var end_cell := Vector2(19, 10)
@@ -21,15 +21,15 @@ var current_path := PoolVector2Array()
 var build_mode := -1
 var terrain_data = {
 	-1: {"name": "empty", "move_cost": 0, "cost": 0},
-	0: {"name": "plains", "move_cost": 4, "cost": -100},
-	1: {"name": "forest", "move_cost": 8, "cost": 200},
-	2: {"name": "hills", "move_cost": 16, "cost": 400},
-	3: {"name": "road", "move_cost": 1, "cost": 100},
-	4: {"name": "gen", "move_cost": 16, "cost": 1000},
-	5: {"name": "mg", "move_cost": 16, "cost": 1000},
-	6: {"name": "vul", "move_cost": 16, "cost": 4000},
-	7: {"name": "art", "move_cost": 16, "cost": 6000},
-	8: {"name": "rkt", "move_cost": 16, "cost": 9000},
+	0: {"name": "plains", "move_cost": 4, "cost": -10},
+	1: {"name": "forest", "move_cost": 8, "cost": 20},
+	2: {"name": "hills", "move_cost": 16, "cost": 40},
+	3: {"name": "road", "move_cost": 1, "cost": 10},
+	4: {"name": "gen", "move_cost": 16, "cost": 100},
+	5: {"name": "mg", "move_cost": 16, "cost": 100},
+	6: {"name": "vul", "move_cost": 16, "cost": 400},
+	7: {"name": "art", "move_cost": 16, "cost": 600},
+	8: {"name": "rkt", "move_cost": 16, "cost": 900},
 }
 var points := []
 
@@ -56,6 +56,8 @@ func _ready() -> void:
 			points.append(Vector2(x, y))
 	initialize_path(points)
 	path_display.draw_path(current_path)
+	if PlayerData.sandbox:
+		money = 9999
 	ui_controls.update_money(money)
 	ui_controls.update_health(hp)
 
@@ -165,8 +167,9 @@ func _on_player_cancel(cell) -> void:
 	build_mode = -1
 
 func money_transaction(new_money) -> void:
-	money = int(clamp(new_money, 0, 99999))
-	ui_controls.update_money(money)
+	if !PlayerData.sandbox:
+		money = int(clamp(new_money, 0, 9999))
+		ui_controls.update_money(money)
 
 var units_reached_end := 0
 var units_destroyed := 0

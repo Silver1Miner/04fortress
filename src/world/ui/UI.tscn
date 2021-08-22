@@ -98,7 +98,7 @@ custom_constants/separation = 20
 margin_right = 80.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Gain $100"
+text = "Gain $10"
 align = 1
 valign = 1
 
@@ -107,7 +107,7 @@ margin_left = 100.0
 margin_right = 180.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Pay $200"
+text = "Pay $20"
 align = 1
 valign = 1
 
@@ -116,7 +116,7 @@ margin_left = 200.0
 margin_right = 280.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Pay $500"
+text = "Pay $50"
 align = 1
 valign = 1
 
@@ -125,7 +125,7 @@ margin_left = 300.0
 margin_right = 380.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Pay $400"
+text = "Pay $40"
 align = 1
 valign = 1
 
@@ -181,13 +181,10 @@ __meta__ = {
 
 [node name="tower_build" type="VBoxContainer" parent="tower_bar"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -40.0
-margin_top = -100.0
-margin_right = 40.0
-margin_bottom = 100.0
+anchor_bottom = 1.0
+margin_left = -36.5
+margin_right = 36.5
 mouse_filter = 2
 custom_constants/separation = 12
 __meta__ = {
@@ -195,7 +192,7 @@ __meta__ = {
 }
 
 [node name="tower" type="Label" parent="tower_bar/tower_build"]
-margin_right = 80.0
+margin_right = 73.0
 margin_bottom = 13.0
 text = "Build Towers"
 align = 1
@@ -206,7 +203,7 @@ __meta__ = {
 
 [node name="options" type="VBoxContainer" parent="tower_bar/tower_build"]
 margin_top = 25.0
-margin_right = 80.0
+margin_right = 73.0
 margin_bottom = 160.0
 custom_constants/separation = 10
 
@@ -218,35 +215,35 @@ toggle_mode = true
 text = "Gen. $1000"
 
 [node name="build_mg" type="Button" parent="tower_bar/tower_build/options"]
-margin_right = 80.0
+margin_right = 73.0
 margin_bottom = 19.0
 toggle_mode = true
-text = "MG. $1000"
+text = "Gun. $100"
 
 [node name="build_vul" type="Button" parent="tower_bar/tower_build/options"]
 margin_top = 29.0
-margin_right = 80.0
+margin_right = 73.0
 margin_bottom = 48.0
 toggle_mode = true
-text = "Vulc. $4000"
+text = "Auto. $400"
 
 [node name="build_art" type="Button" parent="tower_bar/tower_build/options"]
 margin_top = 58.0
-margin_right = 80.0
+margin_right = 73.0
 margin_bottom = 77.0
 toggle_mode = true
-text = "Art. $6000"
+text = "Art. $600"
 
 [node name="build_rkt" type="Button" parent="tower_bar/tower_build/options"]
 margin_top = 87.0
-margin_right = 80.0
+margin_right = 73.0
 margin_bottom = 106.0
 toggle_mode = true
-text = "Rkts. $9000"
+text = "Rkts. $900"
 
 [node name="remove" type="Button" parent="tower_bar/tower_build/options"]
 margin_top = 116.0
-margin_right = 80.0
+margin_right = 73.0
 margin_bottom = 135.0
 toggle_mode = true
 text = "Demolish"

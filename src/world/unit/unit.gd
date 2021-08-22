@@ -18,6 +18,7 @@ onready var _sprite: Sprite = $Sprite
 onready var _hp_bar: TextureProgress = $TextureProgress
 var cell := Vector2.ZERO setget set_cell
 var terrain = null
+var invulnerable := false
 
 signal unit_destroyed(bounty)
 signal end_reached(hp)
@@ -74,6 +75,8 @@ func _process(delta: float) -> void:
 	_cardinal_direction_last_frame = _cardinal_direction
 
 func take_damage(damage_amount) -> void:
+	if invulnerable:
+		return
 	$damage_flash.frame = 0
 	$damage_flash.play()
 	var fct = FCT.instance()
@@ -86,13 +89,14 @@ func set_hp(new_hp) -> void:
 	hp = new_hp
 	_hp_bar.value = hp
 	if hp <= 0:
+		invulnerable = true
 		var fct = FCT.instance()
 		get_parent().add_child(fct)
 		fct.rect_position = get_global_position()
 		fct.show_value("+$" + str(bounty), Vector2(0,-8), 1, PI/2, true, Color(0,1,0))
-		emit_signal("unit_destroyed", bounty)
 		create_explosion()
 		_animation_player.stop()
+		emit_signal("unit_destroyed", bounty)
 		queue_free()
 
 func set_cell(value: Vector2) -> void:
@@ -111,14 +115,14 @@ func _set_is_walking(value: bool) -> void:
 	set_process(_is_walking)
 
 # DEBUGGING
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_left"):
-		_sprite.set_flip_h(false)
-		_animation_player.play("walk_left")
-	elif event.is_action_pressed("ui_right"):
-		_sprite.set_flip_h(true)
-		_animation_player.play("walk_left")
-	elif event.is_action_pressed("ui_up"):
-		_animation_player.play("walk_up")
-	elif event.is_action_pressed("ui_down"):
-		_animation_player.play("walk_down")
+#func _unhandled_input(event: InputEvent) -> void:
+#	if event.is_action_pressed("ui_left"):
+#		_sprite.set_flip_h(false)
+#		_animation_player.play("walk_left")
+#	elif event.is_action_pressed("ui_right"):
+#		_sprite.set_flip_h(true)
+#		_animation_player.play("walk_left")
+#	elif event.is_action_pressed("ui_up"):
+#		_animation_player.play("walk_up")
+#	elif event.is_action_pressed("ui_down"):
+#		_animation_player.play("walk_down")

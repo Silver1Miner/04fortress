@@ -45,15 +45,6 @@ func _ready() -> void:
 	if next_wave_button.connect("pressed", self, "_on_next_wave_button_pressed") != OK:
 		push_error("next wave button connect fail")
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
-		if get_tree().paused:
-			pause_menu.visible = false
-			get_tree().paused = false
-		else:
-			pause_menu.visible = true
-			get_tree().paused = true
-
 func update_money(new_value) -> void:
 	money_label.text = "$." + str(new_value)
 

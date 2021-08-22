@@ -23,14 +23,21 @@ func _on_restart_button_pressed() -> void:
 	if get_tree().change_scene("res://src/world/board/board.tscn") != OK:
 		push_error("fail to load world")
 
-
 func _on_main_menu_button_pressed() -> void:
 	get_tree().paused = false
 	visible = false
 	if get_tree().change_scene("res://src/menu/MainMenu.tscn") != OK:
 		push_error("fail to load world")
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
-		get_tree().paused = false
-		visible = false
+		if get_tree().paused:
+			print("unpause pressed")
+			visible = false
+			get_tree().paused = false
+			get_tree().set_input_as_handled()
+		else:
+			print("pause pressed")
+			visible = true
+			get_tree().paused = true
+			get_tree().set_input_as_handled()

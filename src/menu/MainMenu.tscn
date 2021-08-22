@@ -44,6 +44,7 @@ __meta__ = {
 margin_right = 81.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 81, 0 )
+disabled = true
 text = "CAMPAIGN"
 
 [node name="sandbox" type="Button" parent="options"]
@@ -56,6 +57,7 @@ text = "SANDBOX"
 margin_top = 70.0
 margin_right = 81.0
 margin_bottom = 89.0
+disabled = true
 text = "CREDITS"
 
 [node name="quit" type="Button" parent="options"]
@@ -67,9 +69,9 @@ text = "QUIT"
 [node name="version" type="Label" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -85.0
+margin_left = -64.0
 margin_bottom = 13.0
-text = "v0.1.0 Pre-Alpha "
+text = "v0.1.0 DEMO "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -90,10 +92,21 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.27451 )
+color = Color( 0, 0, 0, 0.705882 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="close" type="Button" parent="campaign_menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -17.5
+margin_top = -40.0
+margin_right = 18.5
+margin_bottom = -21.0
+text = "Close"
 
 [node name="settings_menu" type="ColorRect" parent="."]
 visible = false
@@ -116,8 +129,6 @@ by Jack Anderson
 
 Soundtrack
 Terra Tactics - Vav
-Approaching Blizzard - Yanagi Seigen
-Turning Gear - Yanagi Seigen
 
 Additional Assets from
 opengameart.org
@@ -127,3 +138,14 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="close" type="Button" parent="settings_menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -17.5
+margin_top = -40.0
+margin_right = 17.5
+margin_bottom = -21.0
+text = "Close"

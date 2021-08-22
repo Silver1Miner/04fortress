@@ -30,4 +30,5 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 3, 65536, 5, 3,
 position = Vector2( 40, 119.75 )
 
 [node name="UI" parent="." instance=ExtResource( 5 )]
+pause_mode = 0
 mouse_filter = 2
