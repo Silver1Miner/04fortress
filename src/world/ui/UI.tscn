@@ -271,6 +271,7 @@ margin_left = -35.0
 margin_top = -27.0
 margin_right = 35.0
 margin_bottom = 27.0
+custom_constants/separation = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -285,9 +286,9 @@ __meta__ = {
 }
 
 [node name="wave_unit_count" type="Label" parent="next_wave/wave_status"]
-margin_top = 17.0
+margin_top = 18.0
 margin_right = 70.0
-margin_bottom = 30.0
+margin_bottom = 31.0
 text = "Enemies: ?"
 align = 1
 __meta__ = {
@@ -295,13 +296,20 @@ __meta__ = {
 }
 
 [node name="next_wave_button" type="Button" parent="next_wave/wave_status"]
-margin_top = 34.0
+margin_top = 36.0
 margin_right = 70.0
-margin_bottom = 54.0
+margin_bottom = 56.0
 rect_min_size = Vector2( 70, 20 )
 text = "NEXT WAVE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="fast_forward" type="Button" parent="next_wave/wave_status"]
+margin_top = 61.0
+margin_right = 70.0
+margin_bottom = 80.0
+toggle_mode = true
+text = "x4 Speed"
 
 [node name="pause_menu" parent="." instance=ExtResource( 4 )]

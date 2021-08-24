@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/units/scout-Sheet.png" type="Texture" id=2]
 
 [node name="scout" instance=ExtResource( 1 )]
-bounty = 2000
+bounty = 200
 plain_speed = 30
 barrier_speed = 1
 road_speed = 50

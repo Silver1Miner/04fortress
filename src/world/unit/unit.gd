@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 		# 0 plains, 1 forest, 2 hills, 3 road, 4-8 towers
 		if current_terrain in [2,4,5,6,7,8]:
 			move_speed = barrier_speed
-		elif current_terrain == 0:
+		elif current_terrain in [0,9,10]:
 			move_speed = plain_speed
 		elif current_terrain == 1:
 			move_speed = forest_speed

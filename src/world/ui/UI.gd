@@ -18,6 +18,7 @@ onready var demolish_button = $tower_bar/tower_build/options/remove
 onready var wave_number = $next_wave/wave_status/wave_number
 onready var wave_unit_count = $next_wave/wave_status/wave_unit_count
 onready var next_wave_button = $next_wave/wave_status/next_wave_button
+onready var fast_forward_button = $next_wave/wave_status/fast_forward
 onready var pause_menu = $pause_menu
 
 # Called when the node enters the scene tree for the first time.
@@ -44,6 +45,8 @@ func _ready() -> void:
 		push_error("demolish connect fail")
 	if next_wave_button.connect("pressed", self, "_on_next_wave_button_pressed") != OK:
 		push_error("next wave button connect fail")
+	if fast_forward_button.connect("toggled", self, "_on_fast_forward_toggled") != OK:
+		push_error("fast forward button connect fail")
 
 func update_money(new_value) -> void:
 	money_label.text = "$." + str(new_value)
@@ -181,4 +184,11 @@ func _on_next_wave_button_pressed() -> void:
 	emit_signal("next_wave")
 
 func enable_next_wave_button(ready: bool) -> void:
-	next_wave_button.disabled = !ready
+	next_wave_button.visible = ready
+	fast_forward_button.pressed = false
+
+func _on_fast_forward_toggled(toggled) -> void:
+	if toggled:
+		Engine.time_scale = 4
+	else:
+		Engine.time_scale = 1

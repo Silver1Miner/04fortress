@@ -5,4 +5,5 @@
 [node name="infantry" instance=ExtResource( 1 )]
 move_speed = 25
 max_hp = 10
+bounty = 50
 road_speed = 30

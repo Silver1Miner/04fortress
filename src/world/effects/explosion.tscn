@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/effects/explosion2.png" type="Texture" id=4]
 [ext_resource path="res://assets/effects/explosion5.png" type="Texture" id=5]
 [ext_resource path="res://src/world/effects/explosion.gd" type="Script" id=6]
-[ext_resource path="res://assets/sounds/208111__planman__poof-of-smoke.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sounds/Splode.wav" type="AudioStream" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

@@ -6,12 +6,24 @@ export (PackedScene) var MTower = preload("res://src/world/tower/guntower.tscn")
 export (PackedScene) var VTower = preload("res://src/world/tower/vulcan.tscn")
 export (PackedScene) var ATower = preload("res://src/world/tower/artillery.tscn")
 export (PackedScene) var RTower = preload("res://src/world/tower/rockets.tscn")
+export (PackedScene) var B = preload("res://src/world/tower/blu.tscn")
+export (PackedScene) var R = preload("res://src/world/tower/red.tscn")
 
 var towers = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
+
+func add_end_points(start_cell, end_cell) -> void:
+	set_cellv(start_cell, 10)
+	set_cellv(end_cell, 9)
+	var blu_instance = B.instance()
+	add_child(blu_instance)
+	blu_instance.position = grid.get_map_position(start_cell)
+	var red_instance = R.instance()
+	add_child(red_instance)
+	red_instance.position = grid.get_map_position(end_cell)
 
 func build_tower(cell, type) -> void:
 	var tower_instance

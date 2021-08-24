@@ -30,6 +30,8 @@ var terrain_data = {
 	6: {"name": "vul", "move_cost": 16, "cost": 400},
 	7: {"name": "art", "move_cost": 16, "cost": 600},
 	8: {"name": "rkt", "move_cost": 16, "cost": 900},
+	9: {"name": "red", "move_cost": 1, "cost": 0},
+	10: {"name": "blu", "move_cost": 1, "cost": 0}
 }
 var points := []
 
@@ -51,6 +53,7 @@ func _ready() -> void:
 		push_error("unit destroy signal connect fail")
 	if enemy_path.connect("unit_count", self, "_on_unit_count_determined") != OK:
 		push_error("unit count signal connect fail")
+	terrain.add_end_points(start_cell, end_cell)
 	for x in 25:
 		for y in 15:
 			points.append(Vector2(x, y))
@@ -106,7 +109,7 @@ func _on_build_mode_changed(new_mode) -> void:
 
 func _on_cursor_moved(cell) -> void:
 	if build_mode in [0,1,2,3]:
-		if not terrain.get_cellv(cell) in [4,5,6,7,8] and terrain_data[build_mode]["cost"] <= money:
+		if not terrain.get_cellv(cell) in [4,5,6,7,8,9,10] and terrain_data[build_mode]["cost"] <= money:
 			player_cursor.set_color_mode(2)
 		else:
 			player_cursor.set_color_mode(1)
@@ -167,9 +170,8 @@ func _on_player_cancel(cell) -> void:
 	build_mode = -1
 
 func money_transaction(new_money) -> void:
-	if !PlayerData.sandbox:
-		money = int(clamp(new_money, 0, 9999))
-		ui_controls.update_money(money)
+	money = int(clamp(new_money, 0, 9999))
+	ui_controls.update_money(money)
 
 var units_reached_end := 0
 var units_destroyed := 0
