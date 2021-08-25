@@ -192,3 +192,6 @@ func _on_fast_forward_toggled(toggled) -> void:
 		Engine.time_scale = 4
 	else:
 		Engine.time_scale = 1
+
+func game_over_display():
+	pause_menu._pause_on(true)

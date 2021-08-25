@@ -20,6 +20,7 @@ func _on_back_button_pressed() -> void:
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	visible = false
+	PlayerData.game_over = false
 	if get_tree().change_scene("res://src/world/board/board.tscn") != OK:
 		push_error("fail to load world")
 
@@ -29,8 +30,20 @@ func _on_main_menu_button_pressed() -> void:
 	if get_tree().change_scene("res://src/menu/MainMenu.tscn") != OK:
 		push_error("fail to load world")
 
+func _pause_on(is_game_over: bool) -> void:
+	if is_game_over:
+		$pause_options/Label.text = "GAME OVER"
+		back_button.visible = false
+	else:
+		$pause_options/Label.text = "PAUSED"
+		back_button.visible = true
+	visible = true
+	get_tree().paused = true
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
+		if PlayerData.game_over:
+			return
 		if get_tree().paused:
 			print("unpause pressed")
 			visible = false
@@ -38,6 +51,5 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_tree().set_input_as_handled()
 		else:
 			print("pause pressed")
-			visible = true
-			get_tree().paused = true
+			_pause_on(false)
 			get_tree().set_input_as_handled()

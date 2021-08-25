@@ -27,6 +27,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="pause_options"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "PAUSED"
+align = 1
+valign = 1
+
 [node name="back" type="Button" parent="pause_options"]
 margin_right = 95.0
 margin_bottom = 20.0

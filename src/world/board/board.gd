@@ -110,21 +110,24 @@ func _on_build_mode_changed(new_mode) -> void:
 func _on_cursor_moved(cell) -> void:
 	if build_mode in [0,1,2,3]:
 		if not terrain.get_cellv(cell) in [4,5,6,7,8,9,10] and terrain_data[build_mode]["cost"] <= money:
-			player_cursor.set_color_mode(2)
+			player_cursor.set_color_mode(2) # green
 		else:
-			player_cursor.set_color_mode(1)
+			player_cursor.set_color_mode(1) # red
 	if build_mode in [4,5,6,7,8]:
 		if terrain.get_cellv(cell) == 0 and terrain_data[build_mode]["cost"] <= money:
 			player_cursor.set_color_mode(2)
+			player_cursor.preview_tower(build_mode)
 		else:
 			player_cursor.set_color_mode(1)
+			player_cursor.preview_tower(0)
 	elif build_mode == 9:
 		if terrain.get_cellv(cell) in [4,5,6,7,8]:
 			player_cursor.set_color_mode(2)
 		else:
 			player_cursor.set_color_mode(1)
 	else:
-		player_cursor.set_color_mode(0)
+		player_cursor.set_color_mode(0) # no color
+		player_cursor.preview_tower(0) # no preview
 
 func _on_player_accept(cell) -> void:
 	print("player pressed accept at ", cell)
@@ -181,7 +184,9 @@ func _on_player_damage_taken(unit_hp) -> void:
 	hp = int(clamp(hp - unit_hp, 0, 100))
 	ui_controls.update_health(hp)
 	if hp <= 0:
+		PlayerData.game_over = true
 		print("player lost")
+		ui_controls.game_over_display()
 	total_damage_taken += unit_hp
 	ui_controls.update_wave_unit_count(clamp(unit_count-units_destroyed-units_reached_end,0,unit_count))
 	if clamp(unit_count-units_destroyed-units_reached_end,0,unit_count) == 0:

@@ -6,4 +6,6 @@
 move_speed = 25
 max_hp = 10
 bounty = 50
+forest_speed = 15
+barrier_speed = 10
 road_speed = 30

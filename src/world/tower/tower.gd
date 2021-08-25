@@ -30,6 +30,21 @@ func _ready() -> void:
 func set_cell(value: Vector2) -> void:
 	cell = grid.clamp_to_board(value)
 
+func _draw() -> void:
+	var center = grid.get_map_position(cell) - Vector2(8,8)
+	var radius = attack_radius
+	var color = Color(1.0, 0, 0)
+	draw_circle_arc(center, radius, 0, 360, color)
+
+func draw_circle_arc(center, radius, angle_from, angle_to, color):
+	var nb_points = 32
+	var points_arc = PoolVector2Array()
+	for i in range(nb_points + 1):
+		var angle_point = deg2rad(angle_from + i * (angle_to-angle_from) / nb_points - 90)
+		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
+	for index_point in range(nb_points):
+		draw_line(points_arc[index_point], points_arc[index_point + 1], color)
+
 func _physics_process(_delta: float) -> void:
 	var targets: Array = _attack_range.get_overlapping_areas()
 	if targets.empty():
@@ -58,7 +73,7 @@ func shoot_at(target: Node2D) -> void:
 			target.get_parent().take_damage(attack_damage)
 	else:
 		var bullet_instance = Bullet.instance()
-		get_parent().add_child(bullet_instance)
+		get_parent().get_parent().get_node("enemy_path").add_child(bullet_instance)
 		bullet_instance.position = get_global_position()
 		bullet_instance.rotation = _ray.cast_to.angle()
 		bullet_instance.damage = attack_damage

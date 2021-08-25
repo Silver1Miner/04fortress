@@ -19,11 +19,13 @@ func _ready() -> void:
 
 func _on_campaign_button_pressed() -> void:
 	PlayerData.sandbox = false
+	PlayerData.game_over = false
 	if get_tree().change_scene("res://src/world/board/board.tscn") != OK:
 		push_error("fail to load world")
 
 func _on_sandbox_button_pressed() -> void:
 	PlayerData.sandbox = true
+	PlayerData.game_over = false
 	if get_tree().change_scene("res://src/world/board/board.tscn") != OK:
 		push_error("fail to load world")
 

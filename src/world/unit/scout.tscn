@@ -6,8 +6,7 @@
 [node name="scout" instance=ExtResource( 1 )]
 bounty = 200
 plain_speed = 30
-barrier_speed = 1
-road_speed = 50
+road_speed = 60
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 2 )

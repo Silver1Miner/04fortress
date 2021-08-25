@@ -6,6 +6,7 @@ var cell := Vector2.ZERO setget set_cell
 onready var _sprite: AnimatedSprite = $AnimatedSprite
 onready var _timer: Timer = $Timer
 onready var _validation_color := $validity
+onready var _preview = $preview
 var board_position := Vector2(0, 0)
 signal cursor_moved(cell)
 signal accept_pressed(cell)
@@ -36,6 +37,53 @@ func set_color_mode(mode: int) -> void:
 		2:
 			_validation_color.visible = true
 			_validation_color.color = Color(0,1,0,0.2)
+
+var attack_radius = 0
+var mtower = preload("res://assets/terrain/icon-mg.png")
+var vtower = preload("res://assets/terrain/icon-vul.png")
+var atower = preload("res://assets/terrain/icon-art.png")
+var rtower = preload("res://assets/terrain/icon-rkt.png")
+func preview_tower(mode) -> void:
+	match mode:
+		0:
+			_preview.visible = false
+			attack_radius = 0
+			update()
+		5:
+			_preview.visible = true
+			attack_radius = 32
+			_preview.texture = mtower
+			update()
+		6:
+			_preview.visible = true
+			attack_radius = 48
+			_preview.texture = vtower
+			update()
+		7:
+			_preview.visible = true
+			attack_radius = 48
+			_preview.texture = atower
+			update()
+		8:
+			_preview.visible = true
+			attack_radius = 72
+			_preview.texture = rtower
+			update()
+
+func _draw() -> void:
+	var center = get_global_position() - (cell*16) - Vector2(8,8)
+	var radius = attack_radius
+	var color = Color(1.0, 0, 0)
+	draw_circle_arc(center, radius, 0, 360, color)
+
+func draw_circle_arc(center, radius, angle_from, angle_to, color):
+	var nb_points = 32
+	var points_arc = PoolVector2Array()
+	for i in range(nb_points + 1):
+		var angle_point = deg2rad(angle_from + i * (angle_to-angle_from) / nb_points - 90)
+		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
+	for index_point in range(nb_points):
+		draw_line(points_arc[index_point], points_arc[index_point + 1], color)
 
 var past_cell := cell
 func _unhandled_input(event) -> void:
