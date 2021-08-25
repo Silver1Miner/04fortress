@@ -12,6 +12,7 @@ func _ready() -> void:
 		push_error("restart button connect fail")
 	if main_menu_button.connect("pressed", self, "_on_main_menu_button_pressed") != OK:
 		push_error("main menu button connect fail")
+	visible = false
 
 func _on_back_button_pressed() -> void:
 	get_tree().paused = false

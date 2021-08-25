@@ -1,0 +1,123 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/themes/UI.tres" type="Theme" id=1]
+[ext_resource path="res://src/world/ui/textbox.gd" type="Script" id=2]
+[ext_resource path="res://assets/profile/officer-red.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/grey.png" type="Texture" id=4]
+
+[node name="textbox" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="options" type="HBoxContainer" parent="."]
+margin_top = 240.0
+margin_right = 480.0
+margin_bottom = 300.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nametagbox" type="NinePatchRect" parent="options"]
+self_modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
+margin_right = 60.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+texture = ExtResource( 4 )
+patch_margin_left = 11
+patch_margin_top = 17
+patch_margin_right = 10
+patch_margin_bottom = 16
+
+[node name="profile" type="TextureRect" parent="options/nametagbox"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="textbox" type="NinePatchRect" parent="options"]
+margin_left = 60.0
+margin_right = 400.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 340, 60 )
+texture = ExtResource( 4 )
+patch_margin_left = 11
+patch_margin_top = 10
+patch_margin_right = 11
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="options/textbox"]
+margin_left = 15.0
+margin_top = 10.0
+margin_right = 325.0
+margin_bottom = 50.0
+text = "The quick brown fox jumps over the lazy dog"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buttonbox" type="NinePatchRect" parent="options"]
+self_modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
+margin_left = 400.0
+margin_right = 480.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 80, 60 )
+texture = ExtResource( 4 )
+patch_margin_left = 11
+patch_margin_top = 14
+patch_margin_right = 13
+patch_margin_bottom = 9
+
+[node name="next" type="Button" parent="options/buttonbox"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -16.5
+margin_top = 5.0
+margin_right = 16.5
+margin_bottom = 24.0
+text = "Next"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="skip" type="Button" parent="options/buttonbox"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -24.0
+margin_right = 15.0
+margin_bottom = -5.0
+text = "Skip"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="block" type="ColorRect" parent="."]
+margin_left = 400.0
+margin_right = 480.0
+margin_bottom = 240.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

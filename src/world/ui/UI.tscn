@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/ui/grey.png" type="Texture" id=1]
 [ext_resource path="res://assets/themes/UI.tres" type="Theme" id=2]
 [ext_resource path="res://src/world/ui/UI.gd" type="Script" id=3]
 [ext_resource path="res://src/world/ui/pause_menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/world/ui/textbox.tscn" type="PackedScene" id=5]
 
 [node name="UI" type="Control"]
 pause_mode = 2
@@ -313,3 +314,6 @@ toggle_mode = true
 text = "x4 Speed"
 
 [node name="pause_menu" parent="." instance=ExtResource( 4 )]
+
+[node name="textbox" parent="." instance=ExtResource( 5 )]
+visible = false

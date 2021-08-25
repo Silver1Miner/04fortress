@@ -42,7 +42,6 @@ __meta__ = {
 margin_right = 81.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 81, 0 )
-disabled = true
 text = "CAMPAIGN"
 
 [node name="sandbox" type="Button" parent="options"]

@@ -9,7 +9,6 @@ onready var path_display := $path_display
 onready var player_cursor := $cursor
 onready var ui_controls := $UI
 onready var enemy_path := $enemy_path
-onready var wave_schedules := $wave_schedules
 var unit_count := 0
 var wave_in_progress := false
 var hp := 100
@@ -17,6 +16,13 @@ var hp := 100
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _astar := AStar2D.new()
 var current_path := PoolVector2Array()
+
+var default = "i,1,a,2,m,3,s,1,i,1,i,2,s,1,s,1,i,1,a"
+var wave_schedule := {
+	1: "i,1,i,2,i,3,i,1,i,1,i,4,i,1,i,1,i,1,i",
+	2: "i,1,i,1,i,2,i,1,i,1,i,2,i,1,i,1,i,1,i,2,i,1,i,1,i"
+}
+var wave_number := 1
 
 var build_mode := -1
 var terrain_data = {
@@ -208,7 +214,6 @@ func _on_unit_count_determined(count) -> void:
 	print("units in this wave is: ", count)
 	unit_count = count
 
-var wave_number := 1
 func prepare_for_next_wave() -> void:
 	units_destroyed = 0
 	units_reached_end = 0
@@ -220,16 +225,24 @@ func prepare_for_next_wave() -> void:
 	ui_controls.update_wave_number(wave_number)
 	ui_controls.update_wave_unit_count("?")
 	ui_controls.enable_next_wave_button(true)
+	if wave_number > len(wave_schedule):
+		print("level completed")
 
 func start_next_wave() -> void:
 	if not wave_in_progress:
 		ui_controls.enable_next_wave_button(false)
 		wave_in_progress = true
 		if PlayerData.sandbox:
-			enemy_path.spawn_wave(wave_schedules.default, start_cell)
+			enemy_path.spawn_wave(default, start_cell)
 			ui_controls.update_wave_unit_count(unit_count)
 		else:
-			print("campaign not written yet")
+			if wave_number in wave_schedule:
+				enemy_path.spawn_wave(wave_schedule[wave_number], start_cell)
+				ui_controls.update_wave_unit_count(unit_count)
+			else:
+				print("no more waves in schedule")
+				enemy_path.spawn_wave(default, start_cell)
+				ui_controls.update_wave_unit_count(unit_count)
 	else:
 		print("cannot start wave already in progress")
 
