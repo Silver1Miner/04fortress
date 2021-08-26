@@ -3,6 +3,7 @@ extends Control
 signal build_mode(mode)
 signal next_wave
 
+onready var level_label = $status_bar/status/level
 onready var money_label = $status_bar/status/money
 onready var hp_label = $status_bar/status/health
 onready var to_plain_button = $terrain_bar/VBoxContainer/options/to_plain
@@ -47,6 +48,9 @@ func _ready() -> void:
 		push_error("next wave button connect fail")
 	if fast_forward_button.connect("toggled", self, "_on_fast_forward_toggled") != OK:
 		push_error("fast forward button connect fail")
+
+func update_level(new_value: String) -> void:
+	level_label.text = new_value
 
 func update_money(new_value) -> void:
 	money_label.text = "$." + str(new_value)

@@ -1,5 +1,16 @@
 extends Control
 
+var default = "i,1,a,2,m,3,s,1,i,1,i,2,s,1,s,1,i,1,a"
+var wave_schedule := {
+	1: "i,1,i,2,i,3,i,1,i,1,i,4,i,1,i,1,i,1,i",
+	2: "i,1,i,1,i,2,i,1,i,1,i,2,i,1,i,1,i,1,i,2,i,1,i,1,i",
+	3: "i,1,i,1,i,2,i,1,i,1,i,2,i,1,i,1,i,1,i,2,i,1,i,1,i",
+	4: "i,1,i,1,i,2,i,1,i,1,i,2,i,1,i,1,i,1,i,2,i,1,i,1,i",
+}
+var wave_number := 1
+signal wave_finished(wave_number)
+signal level_finished
+
 export var money := 300
 export var grid: Resource = preload("res://src/world/board/Grid.tres")
 export var start_cell := Vector2(0, 0)
@@ -17,12 +28,6 @@ const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _astar := AStar2D.new()
 var current_path := PoolVector2Array()
 
-var default = "i,1,a,2,m,3,s,1,i,1,i,2,s,1,s,1,i,1,a"
-var wave_schedule := {
-	1: "i,1,i,2,i,3,i,1,i,1,i,4,i,1,i,1,i,1,i",
-	2: "i,1,i,1,i,2,i,1,i,1,i,2,i,1,i,1,i,1,i,2,i,1,i,1,i"
-}
-var wave_number := 1
 
 var build_mode := -1
 var terrain_data = {
@@ -225,7 +230,9 @@ func prepare_for_next_wave() -> void:
 	ui_controls.update_wave_number(wave_number)
 	ui_controls.update_wave_unit_count("?")
 	ui_controls.enable_next_wave_button(true)
+	emit_signal("wave_finished", wave_number)
 	if wave_number > len(wave_schedule):
+		emit_signal("level_finished")
 		print("level completed")
 
 func start_next_wave() -> void:

@@ -22,8 +22,8 @@ func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	visible = false
 	PlayerData.game_over = false
-	if get_tree().change_scene("res://src/world/board/board.tscn") != OK:
-		push_error("fail to load world")
+	if get_tree().reload_current_scene() != OK:
+		push_error("fail to reload world")
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().paused = false

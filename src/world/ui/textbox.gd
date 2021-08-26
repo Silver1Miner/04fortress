@@ -11,7 +11,8 @@ onready var skip_button := $options/buttonbox/skip
 var profiles = {
 	"red": preload("res://assets/profile/officer-red.png"),
 	"blu": preload("res://assets/profile/officer-blu.png")
-	}
+}
+signal text_finished
 
 func _ready() -> void:
 	timer.wait_time = 0.05
@@ -46,6 +47,8 @@ func initialize(scene) -> void:
 	dialogue = scene
 	text_playing = true
 	page = "0"
+	if not page in dialogue:
+		end_text()
 	text.set_bbcode(dialogue[page]["text"])
 	profile.texture = profiles[dialogue[page]["name"]]
 	text.set_visible_characters(0)
@@ -78,6 +81,7 @@ func _input(event) -> void:
 func end_text() -> void:
 	get_tree().paused = false
 	visible = false
+	emit_signal("text_finished")
 
 func _on_timer_timeout() -> void:
 	text.set_visible_characters(text.get_visible_characters()+1)
