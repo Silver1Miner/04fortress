@@ -3,13 +3,14 @@ extends Node
 var current_level := 1
 var sandbox := true
 var game_over := false
-var completed_levels = [1, 1, 1, 1]
+var completed_levels = [1, 0, 0, 0]
 
 func _ready():
 	load_state()
 
 func reset() -> void:
 	completed_levels = [1, 0, 0, 0]
+	save_state()
 
 func load_state() -> void:
 	var save_game = File.new()

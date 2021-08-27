@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 2400.0
 margin_bottom = 1500.0
-rect_scale = Vector2( 0.17, 0.17 )
+rect_scale = Vector2( 0.167, 0.167 )
 texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -54,8 +54,7 @@ text = "SANDBOX"
 margin_top = 70.0
 margin_right = 81.0
 margin_bottom = 89.0
-disabled = true
-text = "CREDITS"
+text = "SETTINGS"
 
 [node name="quit" type="Button" parent="options"]
 margin_top = 105.0
@@ -68,7 +67,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -64.0
 margin_bottom = 13.0
-text = "v0.1.0 DEMO "
+text = "v0.2.0 DEMO "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -153,7 +152,7 @@ text = "Close"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.705882 )
+color = Color( 0, 0, 0, 0.862745 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -190,3 +189,10 @@ margin_top = -40.0
 margin_right = 17.5
 margin_bottom = -21.0
 text = "Close"
+
+[node name="clear" type="Button" parent="settings_menu"]
+margin_left = 25.0
+margin_top = 220.0
+margin_right = 125.0
+margin_bottom = 239.0
+text = "CLEAR SAVE DATA"

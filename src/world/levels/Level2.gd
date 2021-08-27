@@ -5,27 +5,43 @@ var new_middle_dialogue_number := 2
 var new_next_level_path := "res://src/world/levels/Level3.tscn"
 
 var new_wave_schedule := {
-	1: "i,1,i,2,i,3,i",
-	2: "m,1,m,1,m,2,m",
-	3: "m,1,m,1,m,2,m",
-	4: "m,1,m,1,m,2,m",
+	1: "i,1,i,2,i,3,i,1,i,1,i",
+	2: "a,1,a,1,a,3,a,1,a,1,a,2,a,1,a,1,a",
+	3: "i,1,i,1,i,3,i,1,i,1,i,2,a,1,a,1,a,2,a,1,i,1,i,1,a,3,i,1,a,1,a",
+	4: "a,1,a,1,a,3,i,1,i,1,i,3,a,1,a,1,a,2,a,1,i,1,i,1,a,3,i,1,a,1,a",
 }
 var new_opening_dialogue := {
 	"0": {
 		"name": "red",
-		"text": "This is level 2."
+		"text": "Good job on clearing those first few waves! It looks like the higher ups are pleased with your progress."
 	},
+	"1": {
+		"name": "red",
+		"text": "They've now authorized us to build rapid-fire gun towers too."
+	},
+	"2": {
+		"name": "red",
+		"text": "And just in time, the invaders are moving into this sector with a much stronger force this time."
+	}
 }
 var new_middle_dialogue := {
 	"0": {
 		"name": "blu",
-		"text": "Time to get serious. Send in the heavy infantry."
+		"text": "Looks like they've boosted their defenses in this region as well."
+	},
+	"1": {
+		"name": "blu",
+		"text": "Good thing I came prepared. Time to send in the heavy infantry."
 	}
 }
 var new_ending_dialogue := {
 	"0": {
 		"name": "blu",
 		"text": "How did we lose?"
+	},
+	"1": {
+		"name": "blu",
+		"text": "Looks like I'll need to request even stronger troops."
 	}
 }
 

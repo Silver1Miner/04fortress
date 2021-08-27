@@ -15,18 +15,19 @@ var wave_schedule := {
 var opening_dialogue := {
 	"0": {
 		"name": "red",
-		"text": "Welcome to the sandbox! Experiment against endless waves!"
-	},
-	"1": {
-		"name": "red",
-		"text": "Press Escape to open the quit menu."
+		"text": "Welcome to the sandbox! Experiment against endless waves! Press Escape to open the quit menu."
 	},
 }
-var middle_dialogue := {}
+var middle_dialogue := {
+	"0": {
+		"name": "red",
+		"text": "The coder must have made a mistake."
+	}
+}
 var ending_dialogue := {
 	"0": {
 		"name": "red",
-		"text": "What the...? How did you beat the sandbox?"
+		"text": "What the...? How did you beat the sandbox? The coder must have made a mistake."
 	}
 }
 
@@ -53,6 +54,7 @@ func _on_level_finished() -> void:
 	if PlayerData.sandbox:
 		return
 	PlayerData.completed_levels[level_number - 1] = 1
+	PlayerData.save_state()
 	level_over = true
 	textbox.initialize(ending_dialogue)
 

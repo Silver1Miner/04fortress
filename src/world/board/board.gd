@@ -32,15 +32,15 @@ var current_path := PoolVector2Array()
 var build_mode := -1
 var terrain_data = {
 	-1: {"name": "empty", "move_cost": 0, "cost": 0},
-	0: {"name": "plains", "move_cost": 4, "cost": -10},
-	1: {"name": "forest", "move_cost": 8, "cost": 20},
-	2: {"name": "hills", "move_cost": 16, "cost": 40},
+	0: {"name": "plains", "move_cost": 8, "cost": -10},
+	1: {"name": "forest", "move_cost": 16, "cost": 20},
+	2: {"name": "hills", "move_cost": 32, "cost": 40},
 	3: {"name": "road", "move_cost": 1, "cost": 10},
-	4: {"name": "gen", "move_cost": 16, "cost": 100},
-	5: {"name": "mg", "move_cost": 16, "cost": 100},
-	6: {"name": "vul", "move_cost": 16, "cost": 400},
-	7: {"name": "art", "move_cost": 16, "cost": 600},
-	8: {"name": "rkt", "move_cost": 16, "cost": 900},
+	4: {"name": "gen", "move_cost": 32, "cost": 100},
+	5: {"name": "mg", "move_cost": 32, "cost": 100},
+	6: {"name": "vul", "move_cost": 32, "cost": 400},
+	7: {"name": "art", "move_cost": 32, "cost": 600},
+	8: {"name": "rkt", "move_cost": 32, "cost": 900},
 	9: {"name": "red", "move_cost": 1, "cost": 0},
 	10: {"name": "blu", "move_cost": 1, "cost": 0}
 }
@@ -144,7 +144,7 @@ func _on_player_accept(cell) -> void:
 	print("player pressed accept at ", cell)
 	if build_mode != -1:
 		if build_mode in [0,1,2,3]:
-			if terrain.get_cellv(cell) in [4,5,6,7,8]:
+			if terrain.get_cellv(cell) in [4,5,6,7,8,9,10]:
 				print("cannot change terrain under tower")
 				return
 			elif terrain_data[build_mode]["cost"] > money:

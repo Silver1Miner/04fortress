@@ -23,7 +23,7 @@ animations = [ {
 is_hitscan = false
 attack_cooldown = 2.0
 attack_radius = 48
-attack_damage = 10
+attack_damage = 15
 tower_value = 6000
 
 [node name="Sprite" parent="." index="1"]

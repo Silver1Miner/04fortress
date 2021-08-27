@@ -12,6 +12,7 @@ onready var level1 = $campaign_menu/levels/level1
 onready var level2 = $campaign_menu/levels/level2
 onready var level3 = $campaign_menu/levels/level3
 onready var level4 = $campaign_menu/levels/level4
+onready var clear_save = $settings_menu/clear
 
 func _ready() -> void:
 	if OS.get_name() == "HTML5":
@@ -28,6 +29,8 @@ func _ready() -> void:
 		push_error("menu close connect fail")
 	if settings_menu_close.connect("pressed", self, "_on_close_button_pressed") != OK:
 		push_error("menu close connect fail")
+	if clear_save.connect("pressed", self, "_on_clear_save_pressed") != OK:
+		push_error("clear connect fail")
 	if level1.connect("pressed", self, "_on_level1_pressed") != OK:
 		push_error("level connect fail")
 	if level2.connect("pressed", self, "_on_level2_pressed") != OK:
@@ -65,6 +68,9 @@ func _on_quit_button_pressed() -> void:
 func _on_close_button_pressed() -> void:
 	campaign_menu.visible = false
 	settings_menu.visible = false
+
+func _on_clear_save_pressed() -> void:
+	PlayerData.reset()
 
 func _on_level1_pressed() -> void:
 	if get_tree().change_scene("res://src/world/levels/Level1.tscn") != OK:
