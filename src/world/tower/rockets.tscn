@@ -32,7 +32,7 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" parent="attack_zone" index="0"]
 shape = SubResource( 1 )
 
-[node name="AudioStreamPlayer2D" parent="." index="4"]
+[node name="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource( 3 )
 
 [node name="shot_flash" parent="." index="6"]

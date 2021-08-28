@@ -13,15 +13,15 @@ var new_wave_schedule := {
 var new_opening_dialogue := {
 	"0": {
 		"name": "red",
-		"text": "Good job on clearing those first few waves! It looks like the higher ups are pleased with your progress."
+		"text": "Good job on clearing those first waves! It looks like the higher ups are pleased with your progress."
 	},
 	"1": {
 		"name": "red",
-		"text": "They've now authorized us to build rapid-fire gun towers too."
+		"text": "They've now authorized us to build rapid-fire gun towers here."
 	},
 	"2": {
 		"name": "red",
-		"text": "And just in time, the invaders are moving into this sector with a much stronger force this time."
+		"text": "And just in time, the invaders are moving into this sector with a much stronger force than before."
 	}
 }
 var new_middle_dialogue := {

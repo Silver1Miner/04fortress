@@ -54,7 +54,7 @@ text = "SANDBOX"
 margin_top = 70.0
 margin_right = 81.0
 margin_bottom = 89.0
-text = "SETTINGS"
+text = "MANUAL"
 
 [node name="quit" type="Button" parent="options"]
 margin_top = 105.0
@@ -67,7 +67,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -64.0
 margin_bottom = 13.0
-text = "v0.2.0 DEMO "
+text = "v0.3.0 DEMO "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -179,6 +179,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="info" type="RichTextLabel" parent="settings_menu"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 240.0
+margin_bottom = 229.0
+text = "CONTROLS
+
+Use the mouse.
+
+Click the relevant buttons to enter the specific build mode. Left click on the map to build. Right click to clear the current selection.
+
+Press Escape to enter the Pause menu."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="close" type="Button" parent="settings_menu"]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -191,6 +207,7 @@ margin_bottom = -21.0
 text = "Close"
 
 [node name="clear" type="Button" parent="settings_menu"]
+visible = false
 margin_left = 25.0
 margin_top = 220.0
 margin_right = 125.0

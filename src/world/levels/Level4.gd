@@ -5,10 +5,10 @@ var new_middle_dialogue_number := 2
 var new_next_level_path := "res://src/menu/MainMenu.tscn"
 
 var new_wave_schedule := {
-	1: "i,1,i,2,i,3,i,1,i,1,i,4,i,1,i,1,i,1,i,3,i,1,i,1,i",
-	2: "s,1,i,1,i,3,m,1,s,1,i,2,i,1,s,1,s,1,i,2,m,1,i,1,i",
-	3: "m,1,m,1,m,2,i,1,a,1,a,2,i,1,i,1,m,1,i,2,i,1,i,1,i",
-	4: "s,1,s,1,s,2,s,1,s,1,s,2,m,1,m,1,m,1,s,2,s,1,m,1,m,3,i,1,i,2,s,1,s,1,s",
+	1: "i,1,i,2,m,2,m,1,i,1,a,4,m,1,m,1,m,1,a,3,m,1,a,1,a,1,a,1,m",
+	2: "s,1,i,1,i,3,m,1,s,1,i,2,i,1,s,1,s,1,i,2,m,1,i,1,i,2,s,1,s,1,s,2,m,1,a,1,m",
+	3: "m,1,m,1,m,2,i,1,a,1,a,2,i,1,i,1,m,1,i,2,i,1,i,1,i,3,s,1,s,1,m,1,a,2,m,1,a,1,s,1,m",
+	4: "s,1,s,1,s,2,s,1,s,1,s,2,m,1,m,1,m,1,s,2,s,1,m,1,m,3,i,1,i,1,m,1,a,2,m,1,a,1,s,1,i,2,s,1,s,1,s,1,s,1,s,1,s",
 }
 var new_opening_dialogue := {
 	"0": {
@@ -25,6 +25,10 @@ var new_opening_dialogue := {
 	},
 	"3": {
 		"name": "red",
+		"text": "It'd be really useful to pair these rockets with terrain modifications that slow down the enemy troops "
+	},
+	"4": {
+		"name": "red",
 		"text": "Anyways, the enemy will probably be throwing everything they have at us. Let's go!"
 	},
 }
@@ -39,7 +43,7 @@ var new_middle_dialogue := {
 	},
 	"2": {
 		"name": "blu",
-		"text": "Overwhelm them with mountains of troops!"
+		"text": "Overwhelm them with sheer numbers!"
 	},
 }
 var new_ending_dialogue := {

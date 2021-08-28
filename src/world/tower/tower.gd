@@ -17,7 +17,7 @@ onready var _cooldown_timer: Timer = $Timer
 onready var _ray = $RayCast2D
 onready var _shot_effect = $shot_flash
 onready var _laser_sight = $Line2D
-onready var _shoot_sound = $AudioStreamPlayer2D
+onready var _shoot_sound = $AudioStreamPlayer
 
 func _ready() -> void:
 	add_to_group("towers")

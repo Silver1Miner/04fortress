@@ -150,9 +150,11 @@ func _on_player_accept(cell) -> void:
 			elif terrain_data[build_mode]["cost"] > money:
 				print("not enough funds")
 				return
-			else:
+			elif build_mode != terrain.get_cellv(cell):
 				terrain.set_cellv(cell, build_mode)
 				money_transaction(money - terrain_data[build_mode]["cost"])
+			else:
+				print("cannot build")
 		if build_mode in [4,5,6,7,8]:
 			if terrain.get_cellv(cell) != 0:
 				print("cannot build tower except on plain")
@@ -201,7 +203,6 @@ func _on_player_damage_taken(unit_hp) -> void:
 	total_damage_taken += unit_hp
 	ui_controls.update_wave_unit_count(clamp(unit_count-units_destroyed-units_reached_end,0,unit_count))
 	if clamp(unit_count-units_destroyed-units_reached_end,0,unit_count) == 0:
-		print(enemy_path.get_child_count() - 2 == 0)
 		prepare_for_next_wave()
 	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 	#print(total_damage_taken, " total damage taken")
@@ -211,7 +212,6 @@ func _on_unit_destroyed(bounty) -> void:
 	money_transaction(money + bounty)
 	ui_controls.update_wave_unit_count(clamp(unit_count-units_destroyed-units_reached_end,0,unit_count))
 	if clamp(unit_count-units_destroyed-units_reached_end,0,unit_count) == 0:
-		print(enemy_path.get_child_count() - 2 == 0)
 		prepare_for_next_wave()
 	#print("units remaining: ", unit_count - units_reached_end - units_destroyed)
 

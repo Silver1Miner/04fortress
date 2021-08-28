@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/world/tower/tower.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/towers/vul-Sheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/sounds/Autoshot_single.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/effects/left.png" type="Texture" id=4]
 [ext_resource path="res://assets/effects/right.png" type="Texture" id=5]
 
@@ -29,6 +30,9 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="attack_zone" index="0"]
 shape = SubResource( 1 )
+
+[node name="AudioStreamPlayer" parent="." index="4"]
+stream = ExtResource( 3 )
 
 [node name="shot_flash" parent="." index="6"]
 frames = SubResource( 2 )

@@ -5,10 +5,10 @@ var new_middle_dialogue_number := 2
 var new_next_level_path := "res://src/world/levels/Level4.tscn"
 
 var new_wave_schedule := {
-	1: "i,1,i,2,i,3,i,1,i,1,i,4,i,1,i,1,i,1,i,3,i,1,i,1,i",
-	2: "i,1,i,1,i,3,m,1,m,1,i,2,i,1,m,1,m,1,i,2,m,1,i,1,i",
-	3: "m,1,m,1,m,2,i,1,a,1,a,2,i,1,i,1,m,1,i,2,i,1,i,1,i",
-	4: "m,1,a,1,m,2,i,1,i,1,i,2,a,1,a,1,m,1,i,2,m,1,m,1,m",
+	1: "i,1,i,2,i,3,a,1,a,1,a,4,i,1,i,1,a,1,i,3,a,1,i,1,i",
+	2: "m,1,m,1,m,3,i,1,a,1,i,3,m,1,m,1,i,2,i,1,m,1,m,1,i,2,m,1,i,1,i",
+	3: "m,1,m,1,m,2,i,1,a,1,a,2,i,1,i,1,m,1,i,2,i,1,i,1,i,2,m,1,a,1,i,1,a,1,a,1,a",
+	4: "m,1,a,1,m,2,i,1,i,1,i,2,a,1,a,1,m,1,i,2,m,1,m,1,m,1,a,1,a,2,m,1,i,1,i,1,i,1,i,1,m,1,m",
 }
 var new_opening_dialogue := {
 	"0": {
@@ -27,15 +27,19 @@ var new_opening_dialogue := {
 		"name": "red",
 		"text": "We best make sure they're not too far from the action then, or else the enemy will dodge the shells easily."
 	},
+	"4": {
+		"name": "red",
+		"text": "Alternatively, they can work great near places where the invaders are slowed down by forests or barricades."
+	},
+	"5": {
+		"name": "red",
+		"text": "We can slow them down with a forest or barricade, then blast them with a shell while they're bogged down!"
+	},
 }
 var new_middle_dialogue := {
 	"0": {
 		"name": "blu",
-		"text": "Time to send out the mechanized infantry."
-	},
-	"1": {
-		"name": "blu",
-		"text": "There's no way they'll be able to hold them back."
+		"text": "Seems they have artillery available. Time to send out the mechanized infantry."
 	},
 }
 var new_ending_dialogue := {
