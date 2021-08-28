@@ -102,7 +102,7 @@ margin_left = -24.5
 margin_top = -62.0
 margin_right = 24.5
 margin_bottom = 62.0
-custom_constants/separation = 8
+custom_constants/separation = 12
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -114,27 +114,27 @@ text = "CAMPAIGN"
 align = 1
 
 [node name="level1" type="Button" parent="campaign_menu/levels"]
-margin_top = 21.0
+margin_top = 25.0
 margin_right = 49.0
-margin_bottom = 40.0
+margin_bottom = 44.0
 text = "Level 1"
 
 [node name="level2" type="Button" parent="campaign_menu/levels"]
-margin_top = 48.0
+margin_top = 56.0
 margin_right = 49.0
-margin_bottom = 67.0
+margin_bottom = 75.0
 text = "Level 2"
 
 [node name="level3" type="Button" parent="campaign_menu/levels"]
-margin_top = 75.0
+margin_top = 87.0
 margin_right = 49.0
-margin_bottom = 94.0
+margin_bottom = 106.0
 text = "Level 3"
 
 [node name="level4" type="Button" parent="campaign_menu/levels"]
-margin_top = 102.0
+margin_top = 118.0
 margin_right = 49.0
-margin_bottom = 121.0
+margin_bottom = 137.0
 text = "Level 4"
 
 [node name="close" type="Button" parent="campaign_menu"]
@@ -171,6 +171,7 @@ Soundtrack
 Terra Tactics - Vav
 
 Additional Assets from
+Vav
 opengameart.org
 kenney.nl
 freesound.org"

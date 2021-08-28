@@ -99,7 +99,7 @@ custom_constants/separation = 20
 margin_right = 80.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Gain $10"
+text = "Gain $5"
 align = 1
 valign = 1
 
@@ -108,7 +108,7 @@ margin_left = 100.0
 margin_right = 180.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Pay $20"
+text = "Pay $10"
 align = 1
 valign = 1
 
@@ -126,7 +126,7 @@ margin_left = 300.0
 margin_right = 380.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Pay $40"
+text = "Pay $25"
 align = 1
 valign = 1
 
