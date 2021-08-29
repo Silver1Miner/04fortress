@@ -5,6 +5,7 @@ var sandbox := true
 var game_over := false
 var completed_levels = [1, 0, 0, 0]
 var invisible_path := false
+var one_hit := false
 
 func _ready():
 	load_state()

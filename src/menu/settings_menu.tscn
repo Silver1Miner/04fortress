@@ -15,9 +15,9 @@ __meta__ = {
 
 [node name="credits" type="Label" parent="."]
 margin_left = 260.0
-margin_top = 40.0
+margin_top = 30.0
 margin_right = 460.0
-margin_bottom = 261.0
+margin_bottom = 251.0
 text = "CREDITS
 
 Fortress Terra
@@ -38,10 +38,10 @@ __meta__ = {
 }
 
 [node name="info" type="RichTextLabel" parent="."]
-margin_left = 40.0
-margin_top = 40.0
-margin_right = 260.0
-margin_bottom = 229.0
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 250.0
+margin_bottom = 219.0
 text = "CONTROLS
 Click the relevant buttons to enter a build mode. Left click on the map to build. Right click to clear the current selection.
 Press Escape to enter the Pause menu."
@@ -69,23 +69,23 @@ margin_bottom = 239.0
 text = "CLEAR SAVE DATA"
 
 [node name="volume_controls" type="VBoxContainer" parent="."]
-margin_left = 40.0
-margin_top = 125.0
-margin_right = 113.0
-margin_bottom = 195.0
+margin_left = 30.0
+margin_top = 120.0
+margin_right = 103.0
+margin_bottom = 190.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Music" type="Label" parent="volume_controls"]
-margin_right = 73.0
+margin_right = 190.0
 margin_bottom = 13.0
 text = "MUSIC VOLUME"
 
 [node name="music_volume" type="HSlider" parent="volume_controls"]
 margin_top = 17.0
-margin_right = 73.0
-margin_bottom = 33.0
+margin_right = 190.0
+margin_bottom = 38.0
 max_value = 1.0
 step = 0.1
 value = 1.0
@@ -94,15 +94,15 @@ __meta__ = {
 }
 
 [node name="Sound" type="Label" parent="volume_controls"]
-margin_top = 37.0
-margin_right = 73.0
-margin_bottom = 50.0
+margin_top = 42.0
+margin_right = 190.0
+margin_bottom = 55.0
 text = "SOUND VOLUME"
 
 [node name="sound_volume" type="HSlider" parent="volume_controls"]
-margin_top = 54.0
-margin_right = 73.0
-margin_bottom = 70.0
+margin_top = 59.0
+margin_right = 190.0
+margin_bottom = 80.0
 max_value = 1.0
 step = 0.1
 value = 1.0
@@ -111,10 +111,10 @@ __meta__ = {
 }
 
 [node name="difficulty_controls" type="VBoxContainer" parent="."]
-margin_left = 40.0
-margin_top = 220.0
-margin_right = 162.0
-margin_bottom = 261.0
+margin_left = 30.0
+margin_top = 210.0
+margin_right = 152.0
+margin_bottom = 279.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -122,13 +122,19 @@ __meta__ = {
 [node name="Label" type="Label" parent="difficulty_controls"]
 margin_right = 122.0
 margin_bottom = 13.0
-text = "HARD MODE CHALLENGES:"
+text = "CHALLENGES:"
 
-[node name="CheckBox" type="CheckBox" parent="difficulty_controls"]
+[node name="invisible" type="CheckBox" parent="difficulty_controls"]
 margin_top = 17.0
 margin_right = 122.0
-margin_bottom = 41.0
-text = "INVISIBLE ROUTE"
+margin_bottom = 47.0
+text = "Invisible Route"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="one_hit" type="CheckBox" parent="difficulty_controls"]
+margin_top = 51.0
+margin_right = 122.0
+margin_bottom = 81.0
+text = "One Hit Wonder"

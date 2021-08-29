@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/ui/grey.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/panel.png" type="Texture" id=1]
 [ext_resource path="res://assets/themes/UI.tres" type="Theme" id=2]
 [ext_resource path="res://src/world/ui/UI.gd" type="Script" id=3]
 [ext_resource path="res://src/world/ui/pause_menu.tscn" type="PackedScene" id=4]
@@ -15,6 +15,7 @@ __meta__ = {
 }
 
 [node name="terrain_bar" type="NinePatchRect" parent="."]
+self_modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
 margin_top = 240.0
 margin_right = 400.0
 margin_bottom = 300.0
@@ -36,13 +37,15 @@ margin_left = -186.5
 margin_top = -30.0
 margin_right = 186.5
 margin_bottom = 30.0
+custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="terrain" type="Label" parent="terrain_bar/VBoxContainer"]
 margin_right = 380.0
-margin_bottom = 13.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 0, 15 )
 text = "Change Terrain"
 align = 1
 valign = 1
@@ -53,7 +56,7 @@ __meta__ = {
 [node name="options" type="HBoxContainer" parent="terrain_bar/VBoxContainer"]
 margin_top = 17.0
 margin_right = 380.0
-margin_bottom = 36.0
+margin_bottom = 40.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -61,7 +64,7 @@ __meta__ = {
 
 [node name="to_plain" type="Button" parent="terrain_bar/VBoxContainer/options"]
 margin_right = 80.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 80, 0 )
 toggle_mode = true
 text = "Clear to Plain"
@@ -69,30 +72,30 @@ text = "Clear to Plain"
 [node name="to_road" type="Button" parent="terrain_bar/VBoxContainer/options"]
 margin_left = 100.0
 margin_right = 180.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 80, 0 )
 toggle_mode = true
 text = "Build Road"
 
 [node name="to_barrier" type="Button" parent="terrain_bar/VBoxContainer/options"]
 margin_left = 200.0
-margin_right = 273.0
-margin_bottom = 19.0
+margin_right = 265.0
+margin_bottom = 23.0
 toggle_mode = true
 text = "Build Barrier"
 
 [node name="to_forest" type="Button" parent="terrain_bar/VBoxContainer/options"]
-margin_left = 293.0
-margin_right = 373.0
-margin_bottom = 19.0
+margin_left = 285.0
+margin_right = 365.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 80, 0 )
 toggle_mode = true
 text = "Plant Forest"
 
 [node name="cost_labels" type="HBoxContainer" parent="terrain_bar/VBoxContainer"]
-margin_top = 40.0
+margin_top = 42.0
 margin_right = 380.0
-margin_bottom = 53.0
+margin_bottom = 55.0
 custom_constants/separation = 20
 
 [node name="Label" type="Label" parent="terrain_bar/VBoxContainer/cost_labels"]
@@ -131,6 +134,7 @@ align = 1
 valign = 1
 
 [node name="status_bar" type="NinePatchRect" parent="."]
+self_modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
 margin_left = 400.0
 margin_right = 480.0
 margin_bottom = 60.0
@@ -173,6 +177,7 @@ __meta__ = {
 }
 
 [node name="tower_bar" type="NinePatchRect" parent="."]
+self_modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
 margin_left = 400.0
 margin_top = 60.0
 margin_right = 480.0
@@ -195,7 +200,7 @@ margin_top = 5.0
 margin_right = 36.5
 margin_bottom = 5.0
 mouse_filter = 2
-custom_constants/separation = 12
+custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -211,9 +216,9 @@ __meta__ = {
 }
 
 [node name="options" type="VBoxContainer" parent="tower_bar/tower_build"]
-margin_top = 25.0
+margin_top = 15.0
 margin_right = 73.0
-margin_bottom = 160.0
+margin_bottom = 170.0
 custom_constants/separation = 10
 
 [node name="build_gen" type="Button" parent="tower_bar/tower_build/options"]
@@ -225,39 +230,40 @@ text = "Gen. $1000"
 
 [node name="build_mg" type="Button" parent="tower_bar/tower_build/options"]
 margin_right = 73.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 toggle_mode = true
 text = "Gun. $100"
 
 [node name="build_vul" type="Button" parent="tower_bar/tower_build/options"]
-margin_top = 29.0
+margin_top = 33.0
 margin_right = 73.0
-margin_bottom = 48.0
+margin_bottom = 56.0
 toggle_mode = true
 text = "Auto. $400"
 
 [node name="build_art" type="Button" parent="tower_bar/tower_build/options"]
-margin_top = 58.0
+margin_top = 66.0
 margin_right = 73.0
-margin_bottom = 77.0
+margin_bottom = 89.0
 toggle_mode = true
 text = "Arti. $600"
 
 [node name="build_rkt" type="Button" parent="tower_bar/tower_build/options"]
-margin_top = 87.0
+margin_top = 99.0
 margin_right = 73.0
-margin_bottom = 106.0
+margin_bottom = 122.0
 toggle_mode = true
 text = "Rkts. $900"
 
 [node name="remove" type="Button" parent="tower_bar/tower_build/options"]
-margin_top = 116.0
+margin_top = 132.0
 margin_right = 73.0
-margin_bottom = 135.0
+margin_bottom = 155.0
 toggle_mode = true
 text = "Demolish"
 
 [node name="next_wave" type="NinePatchRect" parent="."]
+self_modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
 margin_left = 400.0
 margin_top = 240.0
 margin_right = 480.0
@@ -280,7 +286,7 @@ margin_left = -35.0
 margin_top = -27.0
 margin_right = 35.0
 margin_bottom = 27.0
-custom_constants/separation = 5
+custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -295,9 +301,9 @@ __meta__ = {
 }
 
 [node name="wave_unit_count" type="Label" parent="next_wave/wave_status"]
-margin_top = 18.0
+margin_top = 17.0
 margin_right = 70.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 text = "Enemies: ?"
 align = 1
 __meta__ = {
@@ -305,9 +311,9 @@ __meta__ = {
 }
 
 [node name="next_wave_button" type="Button" parent="next_wave/wave_status"]
-margin_top = 36.0
+margin_top = 34.0
 margin_right = 70.0
-margin_bottom = 56.0
+margin_bottom = 57.0
 rect_min_size = Vector2( 70, 20 )
 text = "NEXT WAVE"
 __meta__ = {
@@ -317,7 +323,7 @@ __meta__ = {
 [node name="fast_forward" type="Button" parent="next_wave/wave_status"]
 margin_top = 61.0
 margin_right = 70.0
-margin_bottom = 80.0
+margin_bottom = 84.0
 toggle_mode = true
 text = "x4 Speed"
 

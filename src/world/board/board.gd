@@ -73,6 +73,8 @@ func _ready() -> void:
 	path_display.draw_path(current_path)
 	if PlayerData.sandbox:
 		money = 9999
+	if PlayerData.one_hit:
+		hp = 1
 	ui_controls.update_money(money)
 	ui_controls.update_health(hp)
 

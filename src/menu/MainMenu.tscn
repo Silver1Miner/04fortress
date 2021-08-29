@@ -41,34 +41,36 @@ __meta__ = {
 
 [node name="campaign" type="Button" parent="options"]
 margin_right = 81.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 81, 0 )
 text = "CAMPAIGN"
 
 [node name="sandbox" type="Button" parent="options"]
-margin_top = 35.0
+margin_top = 39.0
 margin_right = 81.0
-margin_bottom = 54.0
+margin_bottom = 62.0
 text = "SANDBOX"
 
 [node name="settings" type="Button" parent="options"]
-margin_top = 70.0
+margin_top = 78.0
 margin_right = 81.0
-margin_bottom = 89.0
+margin_bottom = 101.0
 text = "SETTINGS"
 
 [node name="quit" type="Button" parent="options"]
-margin_top = 105.0
+margin_top = 117.0
 margin_right = 81.0
-margin_bottom = 124.0
+margin_bottom = 140.0
 text = "QUIT"
 
 [node name="version" type="Label" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -64.0
-margin_bottom = 13.0
+margin_right = 3.0
+margin_bottom = 14.0
 text = "v0.4.0 DEMO "
+valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
