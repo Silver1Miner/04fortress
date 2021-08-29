@@ -9,6 +9,7 @@ var wave_schedule := {
 }
 var wave_number := 1
 signal wave_finished(wave_number)
+signal wave_started(wave_number)
 signal level_finished
 
 export var money := 300
@@ -239,6 +240,7 @@ func start_next_wave() -> void:
 	if not wave_in_progress:
 		ui_controls.enable_next_wave_button(false)
 		wave_in_progress = true
+		emit_signal("wave_started", wave_number)
 		if PlayerData.sandbox:
 			enemy_path.spawn_wave(default, start_cell)
 			ui_controls.update_wave_unit_count(unit_count)

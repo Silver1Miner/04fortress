@@ -34,6 +34,7 @@ shape = SubResource( 1 )
 
 [node name="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource( 3 )
+bus = "Sound"
 
 [node name="shot_flash" parent="." index="6"]
 frames = SubResource( 2 )

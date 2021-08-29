@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/themes/UI.tres" type="Theme" id=1]
 [ext_resource path="res://src/menu/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://assets/main-menu.png" type="Texture" id=3]
+[ext_resource path="res://src/menu/settings_menu.tscn" type="PackedScene" id=4]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -54,7 +55,7 @@ text = "SANDBOX"
 margin_top = 70.0
 margin_right = 81.0
 margin_bottom = 89.0
-text = "MANUAL"
+text = "SETTINGS"
 
 [node name="quit" type="Button" parent="options"]
 margin_top = 105.0
@@ -67,7 +68,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -64.0
 margin_bottom = 13.0
-text = "v0.3.0 DEMO "
+text = "v0.4.0 DEMO "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -148,69 +149,5 @@ margin_right = 18.5
 margin_bottom = -21.0
 text = "Close"
 
-[node name="settings_menu" type="ColorRect" parent="."]
+[node name="settings_menu" parent="." instance=ExtResource( 4 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.862745 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="credits" type="Label" parent="settings_menu"]
-margin_left = 260.0
-margin_top = 40.0
-margin_right = 460.0
-margin_bottom = 261.0
-text = "CREDITS
-
-Fortress Terra
-by Jack Anderson
-
-Soundtrack
-Terra Tactics - Vav
-
-Additional Assets from
-Vav
-opengameart.org
-kenney.nl
-freesound.org"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="info" type="RichTextLabel" parent="settings_menu"]
-margin_left = 40.0
-margin_top = 40.0
-margin_right = 240.0
-margin_bottom = 229.0
-text = "CONTROLS
-
-Use the mouse.
-
-Click the relevant buttons to enter the specific build mode. Left click on the map to build. Right click to clear the current selection.
-
-Press Escape to enter the Pause menu."
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="close" type="Button" parent="settings_menu"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -17.5
-margin_top = -40.0
-margin_right = 17.5
-margin_bottom = -21.0
-text = "Close"
-
-[node name="clear" type="Button" parent="settings_menu"]
-visible = false
-margin_left = 25.0
-margin_top = 220.0
-margin_right = 125.0
-margin_bottom = 239.0
-text = "CLEAR SAVE DATA"

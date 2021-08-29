@@ -34,6 +34,8 @@ var ending_dialogue := {
 func _ready() -> void:
 	override()
 	board.wave_schedule = wave_schedule
+	if board.connect("wave_started", self, "_on_wave_started") != OK:
+		push_error("wave start signal connect fail")
 	if board.connect("wave_finished", self, "_on_wave_finished") != OK:
 		push_error("wave finish signal connect fail")
 	if board.connect("level_finished", self, "_on_level_finished") != OK:
@@ -44,11 +46,17 @@ func _ready() -> void:
 	#ui.update_level("Level " + str(level_number))
 
 func override() -> void:
+	# overwritten by inherited scenes
+	pass
+
+func _on_wave_started(_wave_number) -> void:
+	# overwritten by inherited scenes
 	pass
 
 func _on_wave_finished(wave_number) -> void:
 	if wave_number == middle_dialogue_number:
 		textbox.initialize(middle_dialogue)
+	Music.play_track(0)
 
 func _on_level_finished() -> void:
 	if PlayerData.sandbox:

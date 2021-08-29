@@ -1,14 +1,14 @@
 extends Level
 
 var new_level_number := 4
-var new_middle_dialogue_number := 2
+var new_middle_dialogue_number := 4
 var new_next_level_path := "res://src/menu/MainMenu.tscn"
 
 var new_wave_schedule := {
 	1: "i,1,i,2,m,2,m,1,i,1,a,4,m,1,m,1,m,1,a,3,m,1,a,1,a,1,a,1,m",
 	2: "s,1,i,1,i,3,m,1,s,1,i,2,i,1,s,1,s,1,i,2,m,1,i,1,i,2,s,1,s,1,s,2,m,1,a,1,m",
 	3: "m,1,m,1,m,2,i,1,a,1,a,2,i,1,i,1,m,1,i,2,i,1,i,1,i,3,s,1,s,1,m,1,a,2,m,1,a,1,s,1,m",
-	4: "s,1,s,1,s,2,s,1,s,1,s,2,m,1,m,1,m,1,s,2,s,1,m,1,m,3,i,1,i,1,m,1,a,2,m,1,a,1,s,1,i,2,s,1,s,1,s,1,s,1,s,1,s",
+	4: "s,1,s,1,s,2,s,1,s,1,s,2,m,1,m,1,m,1,s,2,s,1,m,1,m,3,i,1,i,1,m,1,a,2,m,1,a,1,s,1,i,2,s,1,s,1,s,1,s,1,s,1,s,3,i,1,i,1,a,1,a,3,s,1,s,1,m,1,m,2,s,1,s,1,s,1,s,1,s,1,s,1,s,1,s,1,s,1,m,1,m,1,s,1,s,1,s,1,s",
 }
 var new_opening_dialogue := {
 	"0": {
@@ -31,19 +31,23 @@ var new_opening_dialogue := {
 		"name": "red",
 		"text": "Anyways, the enemy will probably be throwing everything they have at us. Let's go!"
 	},
+	"5": {
+		"name": "blu",
+		"text": "Even this sector is fortified? No matter."
+	},
+	"6": {
+		"name": "blu",
+		"text": "We'll rush them with scout cars, and follow with everything we've got."
+	},
 }
 var new_middle_dialogue := {
 	"0": {
 		"name": "blu",
-		"text": "Even this sector is fortified? No matter."
+		"text": "Throw everything we have at them!"
 	},
 	"1": {
 		"name": "blu",
-		"text": "We'll rush them with scout cars, and follow with everything we've got."
-	},
-	"2": {
-		"name": "blu",
-		"text": "Overwhelm them with sheer numbers!"
+		"text": "Overwhelm them!"
 	},
 }
 var new_ending_dialogue := {
@@ -93,3 +97,7 @@ func override() -> void:
 	middle_dialogue = new_middle_dialogue
 	ending_dialogue = new_ending_dialogue
 	middle_dialogue_number = new_middle_dialogue_number
+
+func _on_wave_started(wave_number) -> void:
+	if PlayerData.invisible_path and wave_number == 4:
+		Music.play_track(1)

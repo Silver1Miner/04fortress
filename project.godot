@@ -62,7 +62,7 @@ config/windows_native_icon="res://icon.ico"
 [autoload]
 
 PlayerData="*res://src/gamedata/PlayerData.tscn"
-Audio="*res://src/audio/audio.tscn"
+Music="*res://src/audio/music.tscn"
 
 [display]
 
