@@ -33,10 +33,6 @@ var new_opening_dialogue := {
 	},
 	"5": {
 		"name": "red",
-		"text": "But if we're really short on cash, we can make some by harvesting woods, barricades, or roads for the resources too!"
-	},
-	"6": {
-		"name": "red",
 		"text": "Anyways, how you want to handle the invaders is all up to you commander! Let's work well together!"
 	},
 }

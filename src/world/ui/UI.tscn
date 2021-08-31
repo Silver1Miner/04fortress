@@ -37,6 +37,7 @@ margin_left = -186.5
 margin_top = -30.0
 margin_right = 186.5
 margin_bottom = 30.0
+mouse_filter = 2
 custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -102,7 +103,7 @@ custom_constants/separation = 20
 margin_right = 80.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 0 )
-text = "Gain $5"
+text = "Pay $5"
 align = 1
 valign = 1
 
@@ -152,6 +153,7 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = 45.0
 margin_bottom = 45.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -286,6 +288,7 @@ margin_left = -35.0
 margin_top = -27.0
 margin_right = 35.0
 margin_bottom = 27.0
+mouse_filter = 2
 custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false

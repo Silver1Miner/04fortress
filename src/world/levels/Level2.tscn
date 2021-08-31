@@ -17,7 +17,7 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 1, 0, 5, 0, 0, 
 text = "LEVEL 2"
 
 [node name="options" parent="board/UI/tower_bar/tower_build" index="1"]
-margin_bottom = 102.0
+margin_bottom = 104.0
 
 [node name="build_art" parent="board/UI/tower_bar/tower_build/options" index="3"]
 visible = false
@@ -28,8 +28,8 @@ margin_top = 58.0
 margin_bottom = 77.0
 
 [node name="remove" parent="board/UI/tower_bar/tower_build/options" index="5"]
-margin_top = 58.0
-margin_bottom = 77.0
+margin_top = 66.0
+margin_bottom = 89.0
 
 [editable path="board"]
 [editable path="board/UI"]

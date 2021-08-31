@@ -33,7 +33,7 @@ var current_path := PoolVector2Array()
 var build_mode := -1
 var terrain_data = {
 	-1: {"name": "empty", "move_cost": 0, "cost": 0},
-	0: {"name": "plains", "move_cost": 8, "cost": -5},
+	0: {"name": "plains", "move_cost": 8, "cost": 5},
 	1: {"name": "forest", "move_cost": 16, "cost": 25},
 	2: {"name": "hills", "move_cost": 32, "cost": 50},
 	3: {"name": "road", "move_cost": 1, "cost": 10},

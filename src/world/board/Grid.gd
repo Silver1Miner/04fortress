@@ -12,8 +12,8 @@ func get_cell_coordinates(map_position: Vector2) -> Vector2:
 	return (map_position / cell_size).floor()
 
 func is_within_bounds(cell_coordinates: Vector2) -> bool:
-	var out := cell_coordinates.x >= 0 and cell_coordinates.x < board_size.x
-	return out and cell_coordinates.y >= 0 and cell_coordinates.y < board_size.y
+	var out := (cell_coordinates.x >= 0 and cell_coordinates.x < board_size.x)
+	return (out and cell_coordinates.y >= 0 and cell_coordinates.y < board_size.y)
 
 func clamp_to_board(grid_position: Vector2) -> Vector2:
 	var out := grid_position

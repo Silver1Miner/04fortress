@@ -19,6 +19,7 @@ onready var _hp_bar: TextureProgress = $TextureProgress
 var cell := Vector2.ZERO setget set_cell
 var terrain = null
 var invulnerable := false
+export var bullet_resistance := false
 
 signal unit_destroyed(bounty)
 signal end_reached(hp)
@@ -42,9 +43,9 @@ func _process(delta: float) -> void:
 		_last_cell = grid.get_cell_coordinates(position)
 		var current_terrain = terrain.get_cellv(grid.get_cell_coordinates(position))
 		# 0 plains, 1 forest, 2 hills, 3 road, 4-8 towers
-		if current_terrain in [2,4,5,6,7,8]:
+		if current_terrain == 2:
 			move_speed = barrier_speed
-		elif current_terrain in [0,9,10]:
+		elif current_terrain in [0,4,5,6,7,8,9,10]:
 			move_speed = plain_speed
 		elif current_terrain == 1:
 			move_speed = forest_speed
@@ -74,9 +75,18 @@ func _process(delta: float) -> void:
 	_position_last_frame = position
 	_cardinal_direction_last_frame = _cardinal_direction
 
+func take_damage_bullet(damage_amount) -> void:
+	if bullet_resistance:
+		damage_amount = ceil(clamp(damage_amount/2,0,damage_amount))
+	take_damage(damage_amount)
+
 func take_damage(damage_amount) -> void:
 	if invulnerable:
 		return
+	var current_terrain = terrain.get_cellv(grid.get_cell_coordinates(position))
+	# 0 plains, 1 forest, 2 hills, 3 road, 4-8 towers
+	if current_terrain in [1, 2]:
+		damage_amount = ceil(clamp(damage_amount/2,0,damage_amount))
 	$damage_flash.frame = 0
 	$damage_flash.play()
 	var fct = FCT.instance()

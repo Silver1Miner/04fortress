@@ -39,7 +39,11 @@ var new_opening_dialogue := {
 var new_middle_dialogue := {
 	"0": {
 		"name": "blu",
-		"text": "Seems they have artillery available. Time to send out the mechanized infantry."
+		"text": "Seems they have artillery available. Did they anticipate our deployment of bullet-resistant vehicles?"
+	},
+	"1": {
+		"name": "blu",
+		"text": "No matter, time to send out the mechanized infantry."
 	},
 }
 var new_ending_dialogue := {

@@ -19,8 +19,8 @@ func _ready() -> void:
 	timer.autostart = true
 	if timer.connect("timeout", self, "_on_timer_timeout") != OK:
 		push_error("timer connect fail")
-	if next_button.connect("pressed", self, "_on_next_pressed") != OK:
-		push_error("next button connect fail")
+	#if next_button.connect("pressed", self, "_on_next_pressed") != OK:
+	#	push_error("next button connect fail")
 	if skip_button.connect("pressed", self, "_on_skip_pressed") != OK:
 		push_error("skip button connect fail")
 	visible = false
@@ -75,8 +75,8 @@ func _input(event) -> void:
 	if text_playing:
 		if event.is_action_pressed("ui_accept") or event.is_action_pressed("left_click"):
 			_on_next_pressed()
-		if (event.is_action_pressed("ui_cancel") or event.is_action_pressed("right_click")):
-			end_text()
+		#if (event.is_action_pressed("ui_cancel") or event.is_action_pressed("right_click")):
+		#	end_text()
 
 func end_text() -> void:
 	get_tree().paused = false

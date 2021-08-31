@@ -89,10 +89,13 @@ var past_cell := cell
 func _unhandled_input(event) -> void:
 	if event is InputEventMouseMotion:
 		if grid.is_within_bounds(grid.get_cell_coordinates(event.position - board_position)):
+			visible = true
 			self.cell = grid.get_cell_coordinates(event.position - board_position)
 			if cell != past_cell:
 				emit_signal("cursor_moved", cell)
 			past_cell = cell
+		else:
+			visible = false
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("left_click"):
 		emit_signal("accept_pressed", cell)
 		get_tree().set_input_as_handled()

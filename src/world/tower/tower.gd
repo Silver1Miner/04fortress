@@ -69,8 +69,8 @@ func shoot_at(target: Node2D) -> void:
 	_shot_effect.play()
 	_shoot_sound.play()
 	if is_hitscan:
-		if target.get_parent().has_method("take_damage"):
-			target.get_parent().take_damage(attack_damage)
+		if target.get_parent().has_method("take_damage_bullet"):
+			target.get_parent().take_damage_bullet(attack_damage)
 	else:
 		var bullet_instance = Bullet.instance()
 		get_parent().get_parent().get_node("enemy_path").add_child(bullet_instance)

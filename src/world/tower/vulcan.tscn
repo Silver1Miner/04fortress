@@ -22,7 +22,7 @@ animations = [ {
 [node name="vulcan" instance=ExtResource( 1 )]
 attack_cooldown = 0.2
 attack_radius = 48
-attack_damage = 1
+attack_damage = 2
 tower_value = 4000
 
 [node name="Sprite" parent="." index="1"]

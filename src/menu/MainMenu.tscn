@@ -69,7 +69,7 @@ anchor_right = 1.0
 margin_left = -64.0
 margin_right = 3.0
 margin_bottom = 14.0
-text = "v0.4.0 DEMO "
+text = "v0.4.1 DEMO "
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false

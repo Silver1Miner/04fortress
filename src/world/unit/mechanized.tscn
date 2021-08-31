@@ -4,10 +4,11 @@
 [ext_resource path="res://assets/units/mechanize-Sheet.png" type="Texture" id=2]
 
 [node name="mechanized" instance=ExtResource( 1 )]
-max_hp = 40
+max_hp = 60
 bounty = 200
 plain_speed = 30
 road_speed = 30
+bullet_resistance = true
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 2 )
